@@ -1,0 +1,80 @@
+.myblogs_div {
+    text-align: right;
+    padding: 2em 2em 4em 2em;
+}
+
+.myblogs_div a {
+    text-transform: capitalize;
+    text-decoration: none;
+    color: white;
+    padding: 2em;
+    font-family: 'Tilt Neon', cursive;
+    font-size: 1.2em;
+}
+
+.myblogs_div_main{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 5em;
+}
+
+.myblogs_map {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    box-shadow: 1.4px 2.9px 25.9px hsl(0deg 0% 0% / 0.46);
+    max-width: 50vh;
+    border-radius: 1.2em;
+    background-color: black;
+}
+
+.myblogs_map_descrip {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2em;
+}
+
+
+.myblogs_map_img {
+    display: flex;
+    justify-content: center;
+}
+
+.myblogs_map_img img {
+    width: 50vh;
+    object-fit: cover;
+    border-radius: 1.2em 1.2em 0 0;
+}
+
+
+.myblogs_map_buttons {
+    display: flex;
+    align-self: flex-end;
+    gap: 1em;
+    padding-bottom: 3em;
+}
+
+.myblogs_map_buttons button {
+    border: none;
+    background-color: inherit;
+    color: white;
+    font-size: 1.2em;
+
+}
+
+@media screen and (max-width:900px) {
+    .myblogs_div{
+        display: flex;
+        justify-content: space-between;
+        padding: 0;
+    }
+    .myblogs_div a{
+        font-size: 1em;
+    }
+    .myblogs_div_main{
+        display: flex;
+        flex-direction: column;
+        gap: 3em;
+    }
+}

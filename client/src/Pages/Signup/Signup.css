@@ -1,0 +1,66 @@
+.login_link_div {
+    margin-top: 1em;
+    text-align: right;
+}
+
+.login_link {
+    padding: 2em;
+    text-decoration: none;
+    color: #39FF14;
+    font-size: 1.3em;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.login_link:hover {
+    color: #39FF14;
+}
+
+.signup_div {
+    text-align: center;
+    margin-top: 8em;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+.signup_div p {
+    font-size: 1.3em;
+    color: #39FF14;
+    padding-bottom: 2em;
+}
+
+.signup_input {
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
+}
+
+.signup_input input {
+    border: none;
+    background-color: #161817;
+    font-size: 1.3em;
+    border-bottom: 1px solid grey;
+    color: white;
+}
+
+.signup_input input:focus {
+    outline: none;
+}
+
+.signup_input button {
+    border: none;
+    background-color: #39FF14;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    font-weight: 500;
+    font-size: 1.2em;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.signup_input button:active {
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+@media screen and (min-width:769px) {
+    .signup_input {
+        width: 50%;
+    }
+}

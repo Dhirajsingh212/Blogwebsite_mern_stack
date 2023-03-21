@@ -1,0 +1,103 @@
+.navbar_div {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    position: sticky;
+    font-family: 'Tilt Neon', cursive;
+}
+
+.navbar_div h2{
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.navbar_ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 3em;
+    margin: auto 1em auto 0;
+    font-size: 1.2em;
+}
+
+.navbar_ul a {
+    text-decoration: none;
+    color: white;
+}
+
+.profile_photo img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.navbar_logout_button button {
+    border: none;
+    background-color: #161817;
+    color: white;
+    padding: 0;
+    text-align: left;
+}
+
+.navbar_login_button button {
+    border: none;
+    background-color: #161817;
+    color: white;
+    padding: 0;
+    text-align: left;
+}
+
+.navbar_login_button {
+    display: none;
+}
+
+.navbar_ul_responsive {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar_ul_responsive li {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.navbar_ul_responsive a {
+    text-decoration: none;
+    color: white;
+}
+
+.navbar_ul_responsive_button {
+    display: none;
+}
+
+.navbar_ul_responsive_button button {
+    border: none;
+    background-color: #161817;
+    color: white;
+}
+
+@media screen and (max-width:768px) {
+    .navbar_ul {
+        display: none;
+    }
+
+    .navbar_ul_responsive_button {
+        display: flex;
+        gap: 1em;
+    }
+
+    .profile_photo {
+        display: flex;
+        align-items: center;
+    }
+
+}
+
+@media screen and (min-width:768px) {
+    .navbar_ul_responsive {
+        display: none !important;
+    }
+
+}
