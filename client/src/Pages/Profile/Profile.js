@@ -1,11 +1,10 @@
 import React from "react";
 import "./Profile.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../../Context/Context";
-
+import { deleteUser, getUser, updateUser } from "../../functions";
 
 export default function Profile() {
   let Navigate = useNavigate();
@@ -15,29 +14,24 @@ export default function Profile() {
   const [data, setdata] = useState("");
   const [username, setusername] = useState("");
   const [email, setemail] = useState("");
-  const [img,setimg]=useState("");
+  const [img, setimg] = useState("");
   const [previewSource, setPreviewSource] = useState("");
 
-  const previewFile =(file)=>{
-    const reader=new FileReader();
+  const previewFile = (file) => {
+    const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onloadend=()=>{
-        setPreviewSource(reader.result);
-    }
-  }
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    };
+  };
 
   useEffect(() => {
-    axios
-      .get("https://blogmernapp.onrender.com/user/getdata", {
-        headers: {
-          token,
-        },
-      })
+    getUser(token)
       .then((res) => {
         setdata(res.data.data[0]);
         setusername(res.data.data[0].username);
         setemail(res.data.data[0].email);
-        setimg(res.data.data[0].profilePhoto)
+        setimg(res.data.data[0].profilePhoto);
       })
       .catch((err) => {
         console.log(err);
@@ -49,9 +43,7 @@ export default function Profile() {
 
     dispatch({ type: "UPDATE_USER_START" });
     try {
-      await axios.patch("https://blogmernapp.onrender.com/user/update", {email,username,previewSource}, {
-        headers: { token },
-      });
+      await updateUser(email, username, previewSource, token);
       dispatch({ type: "UPDATE_USER_SUCCESS" });
     } catch (err) {
       dispatch({ type: "UPDATE_USER_FAIL" });
@@ -62,9 +54,7 @@ export default function Profile() {
   const deleteHandler = async () => {
     dispatch({ type: "DELETE_USER_START" });
     try {
-      await axios.delete("https://blogmernapp.onrender.com/user/delete", {
-        headers: { token },
-      });
+      await deleteUser(token);
       dispatch({ type: "DELETE_USER_SUCCESS" });
       dispatch({ tyoe: "LOGOUT" });
       Navigate("/");
@@ -96,10 +86,7 @@ export default function Profile() {
       </div>
       <div className="profile_div_main">
         <div className="profile_div">
-          <img
-            src={`${img}`}
-            alt=""
-          />
+          <img src={`${img}`} alt="" />
           <form
             className="profile_form"
             encType="multipart/form-data"
@@ -130,16 +117,16 @@ export default function Profile() {
               name="profilephoto"
               required
               onChange={(e) => {
-                const file=e.target.files[0];
+                const file = e.target.files[0];
                 previewFile(file);
               }}
             />
-            {previewSource && (<img src={previewSource}/>)}
-              <button className="profile_form_button">Update</button>
+            {previewSource && <img src={previewSource} alt="" />}
+            <button className="profile_form_button">Update</button>
           </form>
-              <button className="profile_form_button" onClick={deleteHandler}>
-                Delete
-              </button>
+          <button className="profile_form_button" onClick={deleteHandler}>
+            Delete
+          </button>
         </div>
       </div>
     </>

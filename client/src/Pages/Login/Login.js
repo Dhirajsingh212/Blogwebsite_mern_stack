@@ -1,12 +1,12 @@
 import React from "react";
 import "./Login.css";
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../../Context/Context";
+import { loginFunction } from "../../functions";
 
-export default function Signup() {
+export default function Login() {
   let navigate = useNavigate();
 
   const { error, isFetching, dispatch } = useContext(Context);
@@ -26,10 +26,7 @@ export default function Signup() {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
     try {
-      const res = await axios.post("https://blogmernapp.onrender.com/login", {
-        username,
-        password,
-      });
+      const res = await loginFunction(username, password);
 
       dispatch({ type: "LOGIN_SUCCESS", payload: { token: res.data.token } });
       navigate("/");

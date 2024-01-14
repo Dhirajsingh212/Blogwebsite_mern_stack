@@ -1,10 +1,10 @@
 import React from "react";
 import "./Createblogs.css";
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../../Context/Context";
+import { createNewBlog } from "../../functions";
 
 export default function Createblogs() {
   let Navigate = useNavigate();
@@ -24,17 +24,17 @@ export default function Createblogs() {
   };
 
   const changeimglink = (e) => {
-    const file=e.target.files[0];
+    const file = e.target.files[0];
     previewFile(file);
   };
 
-  const previewFile =(file)=>{
-    const reader=new FileReader();
+  const previewFile = (file) => {
+    const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onloadend=()=>{
-        setPreviewSource(reader.result);
-    }
-  }
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    };
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -42,9 +42,7 @@ export default function Createblogs() {
     var data = token;
     dispatch({ type: "NEW_BLOG_START" });
     try {
-      await axios.post("https://blogmernapp.onrender.com/newBlogs",{title,descrip,previewSource}, {
-        headers: { data },
-      });
+      await createNewBlog(data, title, descrip, previewSource);
       dispatch({ type: "NEW_BLOG_SUCCESS" });
       Navigate("/");
     } catch (err) {
@@ -94,8 +92,8 @@ export default function Createblogs() {
           onChange={changedescrip}
           required
         />
-        {previewSource && (<img src={previewSource} />)}
-        <input required type="file" filename="image" onChange={changeimglink} />
+        {previewSource && <img src={previewSource} alt="" />}
+        <input type="file" filename="image" onChange={changeimglink} />
         <button type="submit">Publish</button>
       </form>
     </>

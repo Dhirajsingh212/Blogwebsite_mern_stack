@@ -3,9 +3,9 @@ import "./Navbar.css";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import { useContext } from "react";
 import { Context } from "../../Context/Context";
+import { getUser, logoutUser } from "../../functions";
 
 export default function Navbar() {
   let Navigate = useNavigate();
@@ -14,9 +14,8 @@ export default function Navbar() {
   const [userdata, setuserdata] = useState("default.jpeg");
 
   useEffect(() => {
-    if (token !== "null") {
-      axios
-        .get("https://blogmernapp.onrender.com/user/getdata", { headers: { token } })
+    if (token !== null) {
+      getUser(token)
         .then((res) => {
           setuserdata(res.data.data[0].profilePhoto);
         })
@@ -24,7 +23,7 @@ export default function Navbar() {
           console.log(err);
         });
     }
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     if (token === null) {
@@ -45,11 +44,12 @@ export default function Navbar() {
       document.getElementsByClassName("profile_photo")[1].style.display =
         "none";
     }
-  }, []);
+  }, [token]);
 
-  const logoutHandler = () => {
+  const logoutHandler = async () => {
+    console.log(token);
+    await logoutUser(token);
     dispatch({ type: "LOGOUT" });
-    window.location.reload(true);
   };
 
   const [flag, setflag] = useState(false);

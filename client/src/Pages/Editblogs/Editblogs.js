@@ -1,4 +1,3 @@
-import axios from "axios";
 import React from "react";
 import "./Editblogs.css";
 import { useParams } from "react-router-dom";
@@ -7,6 +6,7 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { Context } from "../../Context/Context";
 import { useNavigate } from "react-router-dom";
+import { editBlog, updateBlog } from "../../functions";
 
 export default function Editblogs() {
   const { error, isFetching, token, dispatch } = useContext(Context);
@@ -20,12 +20,7 @@ export default function Editblogs() {
   const [previewSource, setPreviewSource] = useState("");
 
   useEffect(() => {
-    axios
-      .get("https://blogmernapp.onrender.com/editblogs", {
-        headers: {
-          params,
-        },
-      })
+    editBlog(params)
       .then((res) => {
         settitle(res.data.data[0].title);
         setdescription(res.data.data[0].description);
@@ -45,30 +40,24 @@ export default function Editblogs() {
   };
 
   const changeimage = (e) => {
-    const file=e.target.files[0];
+    const file = e.target.files[0];
     previewFile(file);
   };
 
-
-  const previewFile =(file)=>{
-    const reader=new FileReader();
+  const previewFile = (file) => {
+    const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onloadend=()=>{
-        setPreviewSource(reader.result);
-    }
-  }
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    };
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
     dispatch({ type: "UPDATE_BLOG_START" });
     try {
-      await axios.patch("https://blogmernapp.onrender.com/updateblogs", {title,description,previewSource}, {
-        headers: {
-          token,
-          params,
-        },
-      });
+      await updateBlog(title, description, previewSource, token, params);
       dispatch({ type: "UPDATE_BLOG_SUCCESS" });
       Navigate("/");
     } catch (err) {
@@ -111,7 +100,7 @@ export default function Editblogs() {
           required
         />
         <input required type="file" name="image" onChange={changeimage} />
-        {previewSource && (<img src={previewSource}/>)}
+        {previewSource && <img src={previewSource} alt="" />}
         <button>Update</button>
       </form>
     </>

@@ -1,10 +1,10 @@
 import React from "react";
 import "./Signup.css";
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../../Context/Context";
+import { signupFunction } from "../../functions";
 
 export default function Signup() {
   let navigate = useNavigate();
@@ -37,12 +37,7 @@ export default function Signup() {
     dispatch({ type: "SIGNUP_START" });
 
     try {
-      const res = await axios.post("https://blogmernapp.onrender.com/signup", {
-        email: email,
-        username: usrname,
-        password: passwrd,
-        passwordConfirm: cnfpasswrd,
-      });
+      const res = await signupFunction(email, usrname, passwrd, cnfpasswrd);
 
       dispatch({ type: "SIGNUP_SUCCESS", payload: { token: res.data.token } });
 

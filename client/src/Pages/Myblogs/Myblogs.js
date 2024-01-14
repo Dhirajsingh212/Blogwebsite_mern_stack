@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../../Context/Context";
+import { base_url, getUserBlogs } from "../../functions";
 
 export default function Myblogs() {
   const { error, isFetching, token, dispatch } = useContext(Context);
@@ -15,11 +16,8 @@ export default function Myblogs() {
   const [data, setdata] = useState([]);
 
   useEffect(() => {
-    var data = token;
-    axios
-      .get("https://blogmernapp.onrender.com/getBlogs", {
-        headers: { data },
-      })
+    let data = token;
+    getUserBlogs(data)
       .then((res) => {
         setdata(res.data.data);
       })
@@ -50,56 +48,56 @@ export default function Myblogs() {
         <a href="/">Home</a>
       </div>
       <div className="myblogs_div_main">
-          {data.length === 0 ? (
-            <div className="myblogs_message">Oops No record found</div>
-          ) : (
-            data.map((e, i) => (
-              <>
-                <div className="myblogs_map container" key={i}>
-                  <div className="myblogs_map_img">
-                    <img src={`${e.image}`} alt="" />
-                  </div>
-                  <div className="myblogs_map_descrip">
-                    <div className="myblogs_map_text">
-                      <h2>{e.title.slice(0, 50)}</h2>
-                      <p>
-                        {e.description.slice(0, 100)}...
-                        <a href={`/${e._id}`} style={{ textDecoration: "none" }}>
-                          more
-                        </a>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="myblogs_map_buttons">
-                    <button
-                      onClick={() => {
-                        Navigate(`/editblogs/${e._id}`);
-                      }}
-                    >
-                      <i class="fa-solid fa-pen-to-square"></i>
-                    </button>
-                    <button
-                      onClick={async () => {
-                        const params = e._id;
-                        dispatch({ type: "DELETE_BLOG_START" });
-                        try {
-                          await axios.delete("https://blogmernapp.onrender.com/deleteblogs", {
-                            headers: { params, token },
-                          });
-                          dispatch({ type: "DELETE_BLOG_SUCCESS" });
-                          Navigate("/");
-                        } catch (err) {
-                          dispatch({ type: "DELETE_BLOG_FAIL" });
-                        }
-                      }}
-                    >
-                      <i class="fa-solid fa-calendar-minus"></i>
-                    </button>
+        {data.length === 0 ? (
+          <div className="myblogs_message">Oops No record found</div>
+        ) : (
+          data.map((e, i) => (
+            <>
+              <div className="myblogs_map container" key={i}>
+                <div className="myblogs_map_img">
+                  <img src={`${e.image}`} alt="" />
+                </div>
+                <div className="myblogs_map_descrip">
+                  <div className="myblogs_map_text">
+                    <h2>{e.title.slice(0, 50)}</h2>
+                    <p>
+                      {e.description.slice(0, 100)}...
+                      <a href={`/${e._id}`} style={{ textDecoration: "none" }}>
+                        more
+                      </a>
+                    </p>
                   </div>
                 </div>
-              </>
-            ))
-          )}
+                <div className="myblogs_map_buttons">
+                  <button
+                    onClick={() => {
+                      Navigate(`/editblogs/${e._id}`);
+                    }}
+                  >
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </button>
+                  <button
+                    onClick={async () => {
+                      const params = e._id;
+                      dispatch({ type: "DELETE_BLOG_START" });
+                      try {
+                        await axios.delete(`${base_url}deleteblogs`, {
+                          headers: { params, token },
+                        });
+                        dispatch({ type: "DELETE_BLOG_SUCCESS" });
+                        Navigate("/");
+                      } catch (err) {
+                        dispatch({ type: "DELETE_BLOG_FAIL" });
+                      }
+                    }}
+                  >
+                    <i class="fa-solid fa-calendar-minus"></i>
+                  </button>
+                </div>
+              </div>
+            </>
+          ))
+        )}
       </div>
     </>
   );
