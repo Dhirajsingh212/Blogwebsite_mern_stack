@@ -1,14 +1,13 @@
 .navbar_div {
   display: flex;
   justify-content: space-between;
-  padding: 1em;
-  /* position: fixed; */
-  /* z-index: 9999; */
+  padding: 1.5em 1em;
   font-family: "Tilt Neon", cursive;
 }
 
 .navbar_div h2 {
   font-family: "Ubuntu", sans-serif;
+  font-size: 1.5em;
 }
 
 .navbar_ul {
@@ -56,14 +55,17 @@
 }
 
 .navbar_ul_responsive {
+  border-top: 1px solid #1e293b;
   list-style: none;
   display: flex;
   flex-direction: column;
+  padding: 0em 1em;
 }
 
 .navbar_ul_responsive li {
   margin-top: 1em;
   margin-bottom: 1em;
+  border-bottom: 1px solid #1e293b;
 }
 
 .navbar_ul_responsive a {

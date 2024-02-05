@@ -8,7 +8,7 @@ import { Context } from "../../Context/Context";
 import { getUser, logoutUser } from "../../functions";
 
 export default function Navbar() {
-  let Navigate = useNavigate();
+  let navigate = useNavigate();
   const { token, dispatch } = useContext(Context);
 
   const [userdata, setuserdata] = useState("default.jpeg");
@@ -84,7 +84,13 @@ export default function Navbar() {
             <a href="#about">About</a>
           </li>
           <li className="navbar_myblog">
-            <a href="myblog">My Blogs</a>
+            <button
+              onClick={() => {
+                navigate("/myblog");
+              }}
+            >
+              My Blogs
+            </button>
           </li>
           <li className="navbar_logout_button">
             <button onClick={logoutHandler}>Logout</button>
@@ -92,7 +98,7 @@ export default function Navbar() {
           <li className="navbar_login_button">
             <button
               onClick={() => {
-                Navigate("/Login");
+                navigate("/Login");
               }}
             >
               Login
@@ -103,7 +109,7 @@ export default function Navbar() {
               src={`${userdata}`}
               alt=""
               onClick={() => {
-                Navigate("/profile");
+                navigate("/profile");
               }}
             />
           </li>
@@ -117,7 +123,7 @@ export default function Navbar() {
               src={`${userdata}`}
               alt=""
               onClick={() => {
-                Navigate("/profile");
+                navigate("/profile");
               }}
             />
           </div>
@@ -143,7 +149,7 @@ export default function Navbar() {
         <li className="navbar_login_button">
           <button
             onClick={() => {
-              Navigate("/Login");
+              navigate("/Login");
             }}
           >
             Login

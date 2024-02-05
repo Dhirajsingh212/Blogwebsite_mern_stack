@@ -1,4 +1,9 @@
-.myblogs_div {
+.myblogs_image img {
+  width: 300vh;
+  height: auto;
+}
+
+/* .myblogs_div {
     text-align: right;
     padding: 2em 2em 4em 2em;
 }
@@ -77,4 +82,4 @@
         flex-direction: column;
         gap: 3em;
     }
-}
+} */

@@ -58,9 +58,22 @@ export default function Signup() {
   return (
     <>
       <div className="login_link_div">
-        <a href="login" className="login_link">
+        <button
+          onClick={() => {
+            navigate("/login");
+          }}
+          className="login_link"
+        >
           Login
-        </a>
+        </button>
+        <button
+          onClick={() => {
+            navigate("/");
+          }}
+          className="login_link"
+        >
+          Home
+        </button>
       </div>
       <div className="signup_div container">
         <p>Sign Into CodeBlog</p>
