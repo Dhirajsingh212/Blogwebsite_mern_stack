@@ -1,0 +1,41 @@
+.header_div {
+    display: flex;
+    justify-content: space-between;
+    background: #010101;
+    margin-bottom: 4em;
+    overflow: hidden;
+}
+
+.header_h1 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 2.75em;
+    padding-top: 6em;
+    padding-left: 0.8em;
+    text-transform: capitalize;
+}
+
+.header_img {
+    transition: 0.5s all ease-in-out;
+}
+
+
+.header_img:hover {
+    transform: scale(1.03);
+}
+
+@media screen and (max-width:769px) {
+    .header_img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .header_div {
+        justify-content: flex-end;
+    }
+
+    .header_h1 {
+        display: none;
+    }
+}
