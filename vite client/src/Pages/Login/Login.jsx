@@ -2,14 +2,15 @@ import React from "react";
 import "./Login.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { Context } from "../../Context/Context";
 import { loginFunction } from "../../functions";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "../../Store";
+import Error from "../Error/Error";
 
 export default function Login() {
   let navigate = useNavigate();
-
-  const { error, isFetching, dispatch } = useContext(Context);
+  const dispatch = useDispatch();
+  const { isFetching, isError } = useSelector((state) => state.userReducer);
 
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
@@ -24,14 +25,14 @@ export default function Login() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    dispatch({ type: "LOGIN_START" });
+    dispatch(userActions.authStart());
     try {
       const res = await loginFunction(username, password);
 
-      dispatch({ type: "LOGIN_SUCCESS", payload: { token: res.data.token } });
+      dispatch(userActions.authSuccess(res.data.token));
       navigate("/");
     } catch (err) {
-      dispatch({ type: "LOGIN_FAIL" });
+      dispatch(userActions.authFail());
     }
   };
 
@@ -39,8 +40,10 @@ export default function Login() {
     return <div className="loading"></div>;
   }
 
-  if (error) {
-    return <div>error</div>;
+  if (isError) {
+    return (
+      <Error errCode={"404"} errMsg={"Something Went Wrong Please Refresh"} />
+    );
   }
 
   return (

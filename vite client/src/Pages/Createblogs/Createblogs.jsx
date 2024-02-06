@@ -2,14 +2,19 @@ import React from "react";
 import "./Createblogs.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { Context } from "../../Context/Context";
 import { createNewBlog } from "../../functions";
+import { useDispatch, useSelector } from "react-redux";
+import { blogActions, userBlogActions } from "../../Store";
+import Error from "../Error/Error";
 
 export default function Createblogs() {
-  let Navigate = useNavigate();
-
-  const { isFetching, error, token, dispatch } = useContext(Context);
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.userReducer);
+  const { userBlogs, isFetching, isError } = useSelector(
+    (state) => state.userBlogReducer
+  );
+  const { blogs } = useSelector((state) => state.blogReducer);
 
   const [title, settitle] = useState("");
   const [descrip, setdescrip] = useState("");
@@ -40,11 +45,12 @@ export default function Createblogs() {
     e.preventDefault();
 
     var data = token;
-    dispatch({ type: "NEW_BLOG_START" });
+    dispatch(userBlogActions.fetchUserBlogStart());
     try {
-      await createNewBlog(data, title, descrip, previewSource);
-      dispatch({ type: "NEW_BLOG_SUCCESS" });
-      Navigate("/myblog");
+      const res = await createNewBlog(data, title, descrip, previewSource);
+      dispatch(userBlogActions.fetchUserBlogSuccess(res.data.data));
+      dispatch(blogActions.fetchBlogSuccess(res.data.newBlog));
+      navigate("/myblog");
     } catch (err) {
       dispatch({ type: "NEW_BLOG_FAIL" });
     }
@@ -54,16 +60,12 @@ export default function Createblogs() {
     return <div className="loading"></div>;
   }
 
-  if (error) {
+  if (isError) {
     return <div>error</div>;
   }
 
   if (token === null) {
-    return (
-      <div>
-        please <a href="/login">login</a>
-      </div>
-    );
+    return <Error errCode={"400"} errMsg={"Please Login"} />;
   }
 
   return (

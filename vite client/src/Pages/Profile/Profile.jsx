@@ -2,14 +2,17 @@ import React from "react";
 import "./Profile.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { Context } from "../../Context/Context";
 import { deleteUser, getUser, updateUser } from "../../functions";
+import { useSelector } from "react-redux";
+import { userActions } from "../../Store";
+import Error from "../Error/Error";
 
 export default function Profile() {
-  let Navigate = useNavigate();
+  let navigate = useNavigate();
 
-  const { isFetching, error, token, dispatch } = useContext(Context);
+  const { token, isFetching, isError } = useSelector(
+    (state) => state.userReducer
+  );
 
   const [data, setdata] = useState("");
   const [username, setusername] = useState("");
@@ -41,25 +44,21 @@ export default function Profile() {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    dispatch({ type: "UPDATE_USER_START" });
     try {
       await updateUser(email, username, previewSource, token);
-      dispatch({ type: "UPDATE_USER_SUCCESS" });
     } catch (err) {
-      dispatch({ type: "UPDATE_USER_FAIL" });
+      console.log(err);
     }
-    Navigate("/");
+    navigate("/profile");
   };
 
   const deleteHandler = async () => {
-    dispatch({ type: "DELETE_USER_START" });
     try {
       await deleteUser(token);
-      dispatch({ type: "DELETE_USER_SUCCESS" });
-      dispatch({ tyoe: "LOGOUT" });
-      Navigate("/");
+      dispatch(userActions.logout());
+      navigate("/");
     } catch (err) {
-      dispatch({ type: "DELETE_USER_FAIL" });
+      console.log(err);
     }
   };
 
@@ -67,16 +66,11 @@ export default function Profile() {
     return <div>loading</div>;
   }
 
-  if (error) {
+  if (isError) {
     return <div>error</div>;
   }
-
   if (token === null) {
-    return (
-      <div>
-        please <a href="/login">login</a>
-      </div>
-    );
+    return <Error errCode={"400"} errMsg={"Please Login"} />;
   }
 
   return (

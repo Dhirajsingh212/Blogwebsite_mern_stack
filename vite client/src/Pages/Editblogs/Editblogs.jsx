@@ -3,15 +3,19 @@ import "./Editblogs.css";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useContext } from "react";
-import { Context } from "../../Context/Context";
 import { useNavigate } from "react-router-dom";
 import { editBlog, updateBlog } from "../../functions";
+import { useDispatch, useSelector } from "react-redux";
+import { blogActions, userBlogActions } from "../../Store";
+import Error from "../Error/Error";
 
 export default function Editblogs() {
-  const { error, isFetching, token, dispatch } = useContext(Context);
+  const { token } = useSelector((state) => state.userReducer);
+  const { isFetching, isError } = useSelector((state) => state.userBlogReducer);
+  const {} = useSelector((state) => state.blogReducer);
+  const dispatch = useDispatch();
 
-  let Navigate = useNavigate();
+  let navigate = useNavigate();
 
   const params = useParams().id;
 
@@ -20,11 +24,11 @@ export default function Editblogs() {
   const [previewSource, setPreviewSource] = useState("");
 
   useEffect(() => {
-    editBlog(params)
+    // let token = token;
+    editBlog(params, token)
       .then((res) => {
         settitle(res.data.data[0].title);
         setdescription(res.data.data[0].description);
-        console.log(res.data.data[0]);
       })
       .catch((err) => {
         console.log(err);
@@ -54,29 +58,31 @@ export default function Editblogs() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
-    dispatch({ type: "UPDATE_BLOG_START" });
+    dispatch(userBlogActions.fetchUserBlogStart());
     try {
-      await updateBlog(title, description, previewSource, token, params);
-      dispatch({ type: "UPDATE_BLOG_SUCCESS" });
-      Navigate("/");
+      const res = await updateBlog(
+        title,
+        description,
+        previewSource,
+        token,
+        params
+      );
+      dispatch(userBlogActions.fetchUserBlogSuccess(res.data.data));
+      dispatch(blogActions.fetchBlogSuccess(res.data.allBlog));
+      navigate("/");
     } catch (err) {
-      dispatch({ type: "UPDATE_BLOG_FAIL" });
+      dispatch(userBlogActions.fetchUserBlogFail());
     }
   };
 
   if (isFetching) {
     return <div className="loading"></div>;
   }
-  if (error) {
+  if (isError) {
     return <div>error</div>;
   }
   if (token === null) {
-    return (
-      <div>
-        please <a href="/login">login</a>
-      </div>
-    );
+    return <Error errCode={"400"} errMsg={"Please Login"} />;
   }
 
   return (

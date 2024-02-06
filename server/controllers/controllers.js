@@ -69,6 +69,13 @@ exports.login = async (req, res) => {
 exports.createBlog = async (req, res) => {
   try {
     const decoded = jwt.verify(req.headers.data, process.env.SECRET);
+    if (!decoded) {
+      res.status(401).json({
+        status: "fail",
+        message: "unauthorized access",
+      });
+      return;
+    }
 
     const usrId = decoded.id;
 
@@ -88,9 +95,16 @@ exports.createBlog = async (req, res) => {
       image: photoUrl.url,
     });
 
+    const allBlog = await Blog.find();
+    const userBlog = await Blog.find({ userId: usrId });
+
+    client.set("blogs", JSON.stringify(allBlog), { EX: 10 });
+    client.set(usrId + "userblogs", JSON.stringify(userBlog));
+
     res.status(200).json({
       status: "success",
-      data: newBlog,
+      newBlog,
+      data: userBlog,
     });
   } catch (err) {
     console.log(err);
@@ -104,6 +118,14 @@ exports.createBlog = async (req, res) => {
 exports.getuserblog = async (req, res) => {
   try {
     const decoded = jwt.verify(req.headers.data, process.env.SECRET);
+    if (!decoded) {
+      res.status(401).json({
+        status: "fail",
+        message: "unauthorized access",
+      });
+      return;
+    }
+
     let usrId = decoded.id;
 
     const data = await Blog.find({ userId: usrId });
@@ -161,6 +183,15 @@ exports.getallblogs = async (req, res) => {
 
 exports.editblogs = async (req, res) => {
   try {
+    const decoded = jwt.verify(req.headers.token, process.env.SECRET);
+    if (!decoded) {
+      res.status(401).json({
+        status: "fail",
+        message: "unauthorized access",
+      });
+      return;
+    }
+
     const data = await Blog.find({ _id: req.headers.params });
 
     res.status(200).json({
@@ -178,8 +209,15 @@ exports.editblogs = async (req, res) => {
 exports.updateblogs = async (req, res) => {
   try {
     const decoded = jwt.verify(req.headers.token, process.env.SECRET);
+    if (!decoded) {
+      res.status(401).json({
+        status: "fail",
+        message: "unauthorized access",
+      });
+      return;
+    }
 
-    var usrId = decoded.id;
+    let usrId = decoded.id;
 
     const blog = await Blog.find({ _id: req.headers.params });
 
@@ -205,8 +243,16 @@ exports.updateblogs = async (req, res) => {
       }
     );
 
+    const allBlog = await Blog.find();
+    const userBlog = await Blog.find({ userId: usrId });
+
+    client.set("blogs", JSON.stringify(allBlog), { EX: 10 });
+    client.set(usrId + "userblogs", JSON.stringify(userBlog));
+
     res.status(200).json({
       status: "success",
+      allBlog,
+      data: userBlog,
     });
   } catch (err) {
     console.log(err);
@@ -233,13 +279,16 @@ exports.deleteblog = async (req, res) => {
 
     await Blog.findByIdAndDelete({ _id: req.headers.params });
 
-    const data = await Blog.find();
+    const allBlog = await Blog.find();
+    const userBlog = await Blog.find({ userId: usrId });
 
-    client.set("blogs", JSON.stringify(data), { EX: 10 });
+    client.set("blogs", JSON.stringify(allBlog), { EX: 10 });
+    client.set(usrId + "userblogs", JSON.stringify(userBlog));
 
     res.status(200).json({
       status: "success",
-      data,
+      allBlog,
+      data: userBlog,
     });
   } catch (err) {
     console.log(err);

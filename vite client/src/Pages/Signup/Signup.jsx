@@ -2,14 +2,15 @@ import React from "react";
 import "./Signup.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { Context } from "../../Context/Context";
 import { signupFunction } from "../../functions";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "../../Store";
+import Error from "../Error/Error";
 
 export default function Signup() {
   let navigate = useNavigate();
-
-  const { error, isFetching, dispatch } = useContext(Context);
+  const dispatch = useDispatch();
+  const { isError, isFetching } = useSelector((state) => state.userReducer);
 
   const [usrname, setusrname] = useState("");
   const [email, setemail] = useState("");
@@ -34,16 +35,16 @@ export default function Signup() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    dispatch({ type: "SIGNUP_START" });
+    dispatch(userActions.authStart());
 
     try {
       const res = await signupFunction(email, usrname, passwrd, cnfpasswrd);
 
-      dispatch({ type: "SIGNUP_SUCCESS", payload: { token: res.data.token } });
+      dispatch(userActions.authSuccess(res.data.token));
 
       navigate("/");
     } catch (err) {
-      dispatch({ type: "SIGNUP_FAIL" });
+      dispatch(userActions.authFail());
     }
   };
 
@@ -51,8 +52,10 @@ export default function Signup() {
     return <div className="loading"></div>;
   }
 
-  if (error) {
-    return <div>error</div>;
+  if (isError) {
+    return (
+      <Error errCode={"404"} errMsg={"Something Went Wrong Please Refresh"} />
+    );
   }
 
   return (

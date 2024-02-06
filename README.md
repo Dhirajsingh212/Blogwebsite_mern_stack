@@ -9,3 +9,7 @@ Improved Home Page myblogs page login and signup pages.
 ## Improved ui
 
 Improved all pages and added Tailwind css.
+
+## Improved ui
+
+Improved all pages ui.

@@ -1,58 +1,59 @@
 import React from "react";
 import "./Myblogs.css";
 import axios from "axios";
-import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { Context } from "../../Context/Context";
 import { base_url, getUserBlogs } from "../../functions";
+import { useDispatch, useSelector } from "react-redux";
+import { blogActions, userBlogActions } from "../../Store";
+import Error from "../Error/Error";
+import Tags from "../../components/Tags/Tags";
 
 export default function Myblogs() {
-  const { error, token, dispatch } = useContext(Context);
-  const [isLoading, setIsLoading] = useState(true);
+  const { token } = useSelector((state) => state.userReducer);
+  const { userBlogs, isFetching, isError } = useSelector(
+    (state) => state.userBlogReducer
+  );
   let navigate = useNavigate();
-
-  const [data, setdata] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let data = token;
+    if (token === null) return;
+    dispatch(userBlogActions.fetchUserBlogStart());
     getUserBlogs(data)
       .then((res) => {
-        setIsLoading(false);
-        setdata(res.data.data);
+        dispatch(
+          userBlogActions.fetchUserBlogSuccess(
+            res.data.data ? res.data.data : []
+          )
+        );
       })
       .catch((err) => {
-        setIsLoading(false);
-        console.log(err);
+        dispatch(userBlogActions.fetchUserBlogFail());
       });
   }, []);
 
-  if (isLoading) {
+  if (isFetching) {
     return <div className="loading"></div>;
   }
-  if (error) {
-    return <div>error</div>;
+  if (isError) {
+    return (
+      <Error errCode={"404"} errMsg={"Something Went Wrong Please Refresh"} />
+    );
   }
 
   if (token === null) {
-    return (
-      <div>
-        please <a href="/login">login</a>
-      </div>
-    );
+    return <Error errCode={"400"} errMsg={"Please Login"} />;
   }
 
   return (
     <>
       <div className="flex flex-col py-10 gap-5 lg:px-14">
-        {data.length > 0 ? (
-          data.map((e, i) => (
-            <>
-              <div
-                className="flex flex-col lg:flex-row lg:gap-5 lg:px-20 px-4"
-                key={i}
-              >
+        {userBlogs.length > 0 ? (
+          userBlogs.map((e, i) => (
+            <div key={i}>
+              <div className="flex flex-col lg:flex-row lg:gap-5 lg:px-20 px-4">
                 <div className="myblogs_image flex-1">
                   <img
                     src={`${e.image}`}
@@ -61,6 +62,11 @@ export default function Myblogs() {
                   />
                 </div>
                 <div className="max-w-screen-md py-10 flex-1  flex flex-col gap-4">
+                  <div className="flex flex-row gap-3">
+                    {[1, 2, 3].map((e) => {
+                      return <Tags event={e} />;
+                    })}
+                  </div>
                   <div className=" flex flex-col gap-4">
                     <button
                       onClick={() => {
@@ -83,9 +89,8 @@ export default function Myblogs() {
                     </button>
                     <button
                       onClick={async () => {
-                        if (prompt("are you sure") === null) return;
+                        if (prompt("Are you sure") === null) return;
                         const params = e._id;
-                        dispatch({ type: "DELETE_BLOG_START" });
                         try {
                           const res = await axios.delete(
                             `${base_url}deleteblogs`,
@@ -93,10 +98,14 @@ export default function Myblogs() {
                               headers: { params, token },
                             }
                           );
-                          dispatch({ type: "DELETE_BLOG_SUCCESS" });
-                          setdata(res.data.data);
+                          dispatch(
+                            userBlogActions.fetchUserBlogSuccess(res.data.data)
+                          );
+                          dispatch(
+                            blogActions.fetchBlogSuccess(res.data.allBlog)
+                          );
                         } catch (err) {
-                          dispatch({ type: "DELETE_BLOG_FAIL" });
+                          console.log(err);
                         }
                       }}
                       className="hover:text-red-500"
@@ -106,7 +115,7 @@ export default function Myblogs() {
                   </div>
                 </div>
               </div>
-            </>
+            </div>
           ))
         ) : (
           <div className="text-center">Oops No record found</div>

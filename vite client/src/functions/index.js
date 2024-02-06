@@ -91,10 +91,11 @@ export const createNewBlog = (data, title, descrip, previewSource) => {
   return res;
 };
 
-export const editBlog = (params) => {
+export const editBlog = (params, token) => {
   const res = axios.get(`${base_url}editblogs`, {
     headers: {
       params,
+      token,
     },
   });
   return res;

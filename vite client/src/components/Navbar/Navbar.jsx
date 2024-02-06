@@ -3,13 +3,14 @@ import "./Navbar.css";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useContext } from "react";
-import { Context } from "../../Context/Context";
 import { getUser, logoutUser } from "../../functions";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "../../Store";
 
 export default function Navbar() {
   let navigate = useNavigate();
-  const { token, dispatch } = useContext(Context);
+  const { token } = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
 
   const [userdata, setuserdata] = useState("default.jpeg");
 
@@ -26,9 +27,8 @@ export default function Navbar() {
   }, [token]);
 
   const logoutHandler = async () => {
-    console.log(token);
     await logoutUser(token);
-    dispatch({ type: "LOGOUT" });
+    dispatch(userActions.logout());
   };
 
   const [flag, setflag] = useState(false);
@@ -64,18 +64,6 @@ export default function Navbar() {
             </button>
           </li>
           {token !== null ? (
-            <li>
-              <button
-                className="hover:text-green-500"
-                onClick={() => {
-                  navigate("/createblog");
-                }}
-              >
-                Create New
-              </button>
-            </li>
-          ) : null}
-          {token !== null ? (
             <li className="navbar_myblog">
               <button
                 onClick={() => {
@@ -84,6 +72,18 @@ export default function Navbar() {
                 className="hover:text-green-500"
               >
                 My Blogs
+              </button>
+            </li>
+          ) : null}
+          {token !== null ? (
+            <li>
+              <button
+                className="hover:text-green-500"
+                onClick={() => {
+                  navigate("/createblog");
+                }}
+              >
+                Create New
               </button>
             </li>
           ) : null}
