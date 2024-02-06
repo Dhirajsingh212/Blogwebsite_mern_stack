@@ -5,21 +5,37 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { getSingleBlog } from "../../functions";
 import Tags from "../../components/Tags/Tags";
+import Error from "../Error/Error";
 
 export default function Oneblog() {
   let params = useParams().id;
 
   const [data, setdata] = useState("");
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getSingleBlog(params)
       .then((res) => {
         setdata(res.data.data);
+        setLoading(false);
       })
       .catch((err) => {
+        setError(true);
+        setLoading(false);
         console.log(err);
       });
   }, []);
+
+  if (loading) {
+    return <div className="loading"></div>;
+  }
+
+  if (error) {
+    return (
+      <Error errCode={"404"} errMsg={"Not Found Please Enter Valid Address"} />
+    );
+  }
 
   return (
     <>
