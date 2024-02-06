@@ -1,7 +1,7 @@
 .navbar_div {
   display: flex;
   justify-content: space-between;
-  padding: 1.5em 1em;
+  padding: 1.5em 5em;
   font-family: "Tilt Neon", cursive;
 }
 
@@ -51,7 +51,7 @@
 }
 
 .navbar_login_button {
-  display: none;
+  /* display: none; */
 }
 
 .navbar_ul_responsive {
@@ -83,7 +83,10 @@
   color: white;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 769px) {
+  .navbar_div {
+    padding: 1.5em 1.5em;
+  }
   .navbar_ul {
     display: none;
   }
@@ -99,7 +102,7 @@
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 769px) {
   .navbar_ul_responsive {
     display: none !important;
   }

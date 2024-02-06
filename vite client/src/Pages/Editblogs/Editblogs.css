@@ -1,58 +1,59 @@
 .editblogs_navigate_home {
-    text-align: right;
-    padding: 2em;
+  text-align: right;
+  padding: 2em;
 }
 
 .editblogs_navigate_home a {
-    text-decoration: none;
-    color: white;
-    font-family: 'Tilt Neon', cursive;
-    font-size: 1.2em;
+  text-decoration: none;
+  color: white;
+  font-family: "Tilt Neon", cursive;
+  font-size: 1.2em;
 }
 
 .editblogs_div {
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
-    margin-top: 2em;
-    font-size: 1.2em;
-    font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  margin-top: 2em;
+  font-size: 1.2em;
+  font-family: "Poppins", sans-serif;
 }
 
 .editblogs_div textarea {
-    border: none;
-    background-color: black;
-    color: white;
-    height: 7em;
+  border: none;
+  background-color: black;
+  color: white;
+  padding: 0.5em;
+  height: 7em;
 }
 
 .editblogs_div textarea:focus {
-    outline: none;
+  outline: none;
 }
 
 .editblogs_div button {
-    border: none;
-    background-color: #39FF14;
-    padding: 0.5em 0 0.5em 0;
-    width: 30%;
-    align-self: center;
-    border-radius: 0.5em;
-    font-weight: 500;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border: none;
+  background-color: #39ff14;
+  padding: 0.5em 0 0.5em 0;
+  width: 30%;
+  align-self: center;
+  border-radius: 0.5em;
+  font-weight: 500;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-.editblogs_div button{
-    align-self: flex-end;
-    width: 15%;
+.editblogs_div button {
+  align-self: flex-end;
+  width: 15%;
 }
 
 .editblogs_div button:active {
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
-@media screen and (max-width:900px){
-    .editblogs_div button{
-        align-self: center;
-        width: 100%;
-    }
+@media screen and (max-width: 900px) {
+  .editblogs_div button {
+    align-self: center;
+    width: 100%;
+  }
 }

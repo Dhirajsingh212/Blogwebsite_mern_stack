@@ -80,11 +80,11 @@ export default function Editblogs() {
   }
 
   return (
-    <>
-      <div className="editblogs_navigate_home">
-        <a href="/">Home</a>
-      </div>
-      <form className="editblogs_div container" onSubmit={submitHandler}>
+    <div className="py-10">
+      <form
+        className="editblogs_div max-sm:px-4 max-md:px-10 px-20"
+        onSubmit={submitHandler}
+      >
         <textarea
           type="text"
           value={title}
@@ -99,10 +99,10 @@ export default function Editblogs() {
           name="description"
           required
         />
-        <input required type="file" name="image" onChange={changeimage} />
+        <input type="file" name="image" onChange={changeimage} />
         {previewSource && <img src={previewSource} alt="" />}
         <button>Update</button>
       </form>
-    </>
+    </div>
   );
 }

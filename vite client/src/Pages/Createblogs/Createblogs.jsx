@@ -44,7 +44,7 @@ export default function Createblogs() {
     try {
       await createNewBlog(data, title, descrip, previewSource);
       dispatch({ type: "NEW_BLOG_SUCCESS" });
-      Navigate("/");
+      Navigate("/myblog");
     } catch (err) {
       dispatch({ type: "NEW_BLOG_FAIL" });
     }
@@ -67,12 +67,9 @@ export default function Createblogs() {
   }
 
   return (
-    <>
-      <div className="createblogs_navigate ">
-        <a href="/">Home</a>
-      </div>
+    <div className="py-10">
       <form
-        className="createblogs_div container"
+        className="createblogs_div px-20 py-10 max-sm:px-4 max-md:px-10"
         encType="multipart/form-data"
         onSubmit={submitHandler}
       >
@@ -96,6 +93,6 @@ export default function Createblogs() {
         <input type="file" filename="image" onChange={changeimglink} />
         <button type="submit">Publish</button>
       </form>
-    </>
+    </div>
   );
 }

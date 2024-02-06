@@ -1,59 +1,45 @@
-.createblogs_navigate {
-    text-align: right;
-    padding: 2em 2em 0 0;
-}
-
-.createblogs_navigate a {
-    text-decoration: none;
-    color: white;
-    font-family: 'Tilt Neon', cursive;
-    font-size: 1.2em;
-}
-
 .createblogs_div {
-    padding-top: 5em;
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
-    font-size: 1.2em;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  font-size: 1.2em;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
 }
 
 .createblogs_div textarea {
-    border: none;
-    background-color: black;
-    height: 8em;
-    color: white;
+  border: none;
+  background-color: black;
+  height: 8em;
+  color: white;
+  padding: 0.5em;
 }
 
 .createblogs_div textarea:focus {
-    outline: none;
+  outline: none;
 }
 
-
 .createblogs_div button {
-    border: none;
-    background-color: #39FF14;
-    padding: 0.5em;
-    width: 20%;
-    align-self: flex-end;
-    border-radius: 0.5em;
-    font-weight: 500;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border: none;
+  background-color: #39ff14;
+  padding: 0.5em;
+  width: 20%;
+  align-self: flex-end;
+  border-radius: 0.5em;
+  font-weight: 500;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .createblogs_div button:active {
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
-@media screen and (max-width:900px){
-    .createblogs_div{
-        padding: 1em;
-    }
-    .createblogs_div button{
-        width: 100%;
-        align-self: center;        
-    }
+@media screen and (max-width: 900px) {
+  .createblogs_div {
+    padding: 1em;
+  }
+  .createblogs_div button {
+    width: 100%;
+    align-self: center;
+  }
 }

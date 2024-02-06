@@ -45,25 +45,7 @@ export default function Myblogs() {
 
   return (
     <>
-      <div className="text-lg font-sans font-bold flex flex-row gap-6 justify-end px-5 py-5">
-        <button
-          onClick={() => {
-            navigate("/createblog");
-          }}
-          className="hover:text-green-500"
-        >
-          Create new blogs
-        </button>
-        <button
-          onClick={() => {
-            navigate("/");
-          }}
-          className="hover:text-green-500"
-        >
-          Home
-        </button>
-      </div>
-      <div className="flex flex-col py-10 gap-5 lg: px-20">
+      <div className="flex flex-col py-10 gap-5 lg:px-14">
         {data.length > 0 ? (
           data.map((e, i) => (
             <>
@@ -74,12 +56,12 @@ export default function Myblogs() {
                 <div className="myblogs_image flex-1">
                   <img
                     src={`${e.image}`}
-                    className="object-cover rounded-lg"
+                    className="w-full h-full object-cover rounded-lg"
                     alt=""
                   />
                 </div>
-                <div className="max-w-screen-md py-10 flex-1">
-                  <div className=" flex flex-col gap-2">
+                <div className="max-w-screen-md py-10 flex-1  flex flex-col gap-4">
+                  <div className=" flex flex-col gap-4">
                     <button
                       onClick={() => {
                         navigate(`/${e._id}`);
@@ -105,16 +87,19 @@ export default function Myblogs() {
                         const params = e._id;
                         dispatch({ type: "DELETE_BLOG_START" });
                         try {
-                          await axios.delete(`${base_url}deleteblogs`, {
-                            headers: { params, token },
-                          });
+                          const res = await axios.delete(
+                            `${base_url}deleteblogs`,
+                            {
+                              headers: { params, token },
+                            }
+                          );
                           dispatch({ type: "DELETE_BLOG_SUCCESS" });
-                          navigate("/");
+                          setdata(res.data.data);
                         } catch (err) {
                           dispatch({ type: "DELETE_BLOG_FAIL" });
                         }
                       }}
-                      className="hover:text-green-500"
+                      className="hover:text-red-500"
                     >
                       <i className="fa-solid fa-calendar-minus"></i>
                     </button>

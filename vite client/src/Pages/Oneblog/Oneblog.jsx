@@ -22,17 +22,21 @@ export default function Oneblog() {
 
   return (
     <>
-      <div className="oneblog_navigate">
-        <a href="/">Home</a>
-      </div>
-      <div className="oneblog_div">
-        <h2>{data.title}</h2>
-        <div className="oneblog_div_info">
-          <div className="oneblog_div_info_des">
-            <p>{data.description}</p>
-            <h5>by {data.username}</h5>
+      <div className="flex flex-col py-10 px-20 max-sm:px-4 max-md:px-5 gap-5">
+        <h2 className="text-4xl font-bold text-teal-400">{data.title}</h2>
+        <div className="flex flex-col-reverse gap-5">
+          <div className="flex flex-col gap-4">
+            <p className="text-xl">{data.description}</p>
+            <h5 className="flex flex-col text-gray-400 text-lg">
+              <span>Owned</span>
+              {data.username}
+            </h5>
           </div>
-          <img src={`${data.image}`} alt="" />
+          <img
+            className="h-full w-full object-cover rounded-lg"
+            src={`${data.image}`}
+            alt=""
+          />
         </div>
       </div>
     </>

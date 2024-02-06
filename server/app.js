@@ -11,6 +11,7 @@ const client = require("./redis");
 
 dotenv.config({ path: "./.env" });
 
+mongoose.set("strictQuery", false);
 mongoose
   .connect(process.env.DB_LOCAL)
   .then(() => {

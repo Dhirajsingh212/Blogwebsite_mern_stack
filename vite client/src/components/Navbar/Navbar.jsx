@@ -25,27 +25,6 @@ export default function Navbar() {
     }
   }, [token]);
 
-  useEffect(() => {
-    if (token === null) {
-      document.getElementsByClassName("navbar_myblog")[0].style.display =
-        "none";
-      document.getElementsByClassName("navbar_myblog")[1].style.display =
-        "none";
-      document.getElementsByClassName("navbar_logout_button")[0].style.display =
-        "none";
-      document.getElementsByClassName("navbar_logout_button")[1].style.display =
-        "none";
-      document.getElementsByClassName("navbar_login_button")[0].style.display =
-        "block";
-      document.getElementsByClassName("navbar_login_button")[1].style.display =
-        "block";
-      document.getElementsByClassName("profile_photo")[0].style.display =
-        "none";
-      document.getElementsByClassName("profile_photo")[1].style.display =
-        "none";
-    }
-  }, [token]);
-
   const logoutHandler = async () => {
     console.log(token);
     await logoutUser(token);
@@ -71,18 +50,103 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="navbar_div container" id="navbar">
+      <div className="navbar_div" id="navbar">
         <h2>CodeBlogs</h2>
-        <ul className="navbar_ul">
+        <ul className="navbar_ul text-xl font-bold">
           <li>
-            <a href="#home">Home</a>
+            <button
+              className="hover:text-green-500"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Home
+            </button>
           </li>
-          <li>
-            <a href="#blog">Blogs</a>
-          </li>
-          <li>
-            <a href="#about">About</a>
-          </li>
+          {token !== null ? (
+            <li>
+              <button
+                className="hover:text-green-500"
+                onClick={() => {
+                  navigate("/createblog");
+                }}
+              >
+                Create New
+              </button>
+            </li>
+          ) : null}
+          {token !== null ? (
+            <li className="navbar_myblog">
+              <button
+                onClick={() => {
+                  navigate("/myblog");
+                }}
+                className="hover:text-green-500"
+              >
+                My Blogs
+              </button>
+            </li>
+          ) : null}
+
+          {token !== null ? (
+            <li className="navbar_logout_button">
+              <button className="hover:text-green-500" onClick={logoutHandler}>
+                Logout
+              </button>
+            </li>
+          ) : null}
+          {token === null ? (
+            <li className="navbar_login_button">
+              <button
+                onClick={() => {
+                  navigate("/Login");
+                }}
+              >
+                Login
+              </button>
+            </li>
+          ) : null}
+          {token !== null ? (
+            <li className="profile_photo">
+              <img
+                src={`${userdata}`}
+                alt=""
+                onClick={() => {
+                  navigate("/profile");
+                }}
+              />
+            </li>
+          ) : null}
+        </ul>
+        <div className="navbar_ul_responsive_button">
+          <button onClick={responsiveHandler}>
+            <i className="fa-solid fa-bars"></i>
+          </button>
+          {token !== null ? (
+            <div className="profile_photo">
+              <img
+                src={`${userdata}`}
+                alt=""
+                onClick={() => {
+                  navigate("/profile");
+                }}
+              />
+            </div>
+          ) : null}
+        </div>
+      </div>
+
+      <ul className="navbar_ul_responsive">
+        <li>
+          <button
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Home
+          </button>
+        </li>
+        {token !== null ? (
           <li className="navbar_myblog">
             <button
               onClick={() => {
@@ -92,9 +156,13 @@ export default function Navbar() {
               My Blogs
             </button>
           </li>
+        ) : null}
+        {token !== null ? (
           <li className="navbar_logout_button">
             <button onClick={logoutHandler}>Logout</button>
           </li>
+        ) : null}
+        {token === null ? (
           <li className="navbar_login_button">
             <button
               onClick={() => {
@@ -104,57 +172,7 @@ export default function Navbar() {
               Login
             </button>
           </li>
-          <li className="profile_photo">
-            <img
-              src={`${userdata}`}
-              alt=""
-              onClick={() => {
-                navigate("/profile");
-              }}
-            />
-          </li>
-        </ul>
-        <div className="navbar_ul_responsive_button">
-          <button onClick={responsiveHandler}>
-            <i className="fa-solid fa-bars"></i>
-          </button>
-          <div className="profile_photo">
-            <img
-              src={`${userdata}`}
-              alt=""
-              onClick={() => {
-                navigate("/profile");
-              }}
-            />
-          </div>
-        </div>
-      </div>
-
-      <ul className="navbar_ul_responsive">
-        <li>
-          <a href="#home">Home</a>
-        </li>
-        <li>
-          <a href="#blog">Blogs</a>
-        </li>
-        <li>
-          <a href="#about">About</a>
-        </li>
-        <li className="navbar_myblog">
-          <a href="myblog">My Blogs</a>
-        </li>
-        <li className="navbar_logout_button">
-          <button onClick={logoutHandler}>Logout</button>
-        </li>
-        <li className="navbar_login_button">
-          <button
-            onClick={() => {
-              navigate("/Login");
-            }}
-          >
-            Login
-          </button>
-        </li>
+        ) : null}
       </ul>
     </>
   );

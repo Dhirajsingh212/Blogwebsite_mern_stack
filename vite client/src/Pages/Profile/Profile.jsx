@@ -81,10 +81,7 @@ export default function Profile() {
 
   return (
     <>
-      <div className="profile_navigate">
-        <a href="/">Home</a>
-      </div>
-      <div className="profile_div_main">
+      <div className="py-10 profile_div_main">
         <div className="profile_div">
           <img src={`${img}`} alt="" />
           <form

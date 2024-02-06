@@ -3,10 +3,12 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { getAllBlogs } from "../../functions";
 import { Context } from "../../Context/Context";
+import { useNavigate } from "react-router-dom";
 
 export default function Blog() {
   const [array, setarray] = useState([]);
   const { token } = useContext(Context);
+  let navigate = useNavigate();
 
   //FETCHING THE DATA FOR ALL THE BLOGS
   useEffect(() => {
@@ -21,11 +23,31 @@ export default function Blog() {
   }, []);
 
   //FOR GETTING TODAYS DATE
-  const date = new Date();
-  let day = date.getDate();
-  let month = date.getMonth() + 1;
-  let year = date.getFullYear();
-  let currentDate = `${day}-${month}-${year}`;
+  let currentDate = new Date();
+
+  // Define month names
+  let monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  // Format the date
+  let formattedDate =
+    monthNames[currentDate.getMonth()] +
+    " " +
+    currentDate.getDate() +
+    ", " +
+    currentDate.getFullYear();
 
   //PICKING RANDOM STYLES FOR TAGS BORDER
   const randomStyles = [
@@ -56,11 +78,9 @@ export default function Blog() {
     return Math.floor(Math.random() * max);
   }
 
-  console.log(array);
-
   return (
     <>
-      <div className="max-sm:px-3 max-sm:py-20 py-28 gap-5 grid lg:grid-cols-3 lg:px-10 md:grid-cols-2 md:px-10">
+      <div className="max-md:px-4 max-sm:py-20 py-28 gap-5 grid lg:grid-cols-3 lg:px-10 md:grid-cols-2 md:px-10">
         {array
           ? array.map((e, i) => {
               return (
@@ -73,7 +93,7 @@ export default function Blog() {
                     />
                   </div>
                   <div className="flex flex-row justify-between items-center text-gray-400">
-                    <p>{currentDate}</p>
+                    <p>{formattedDate}</p>
                     <div className="flex flex-row gap-4">
                       {[1, 2].map((e) => {
                         return (
@@ -92,12 +112,14 @@ export default function Blog() {
                       })}
                     </div>
                   </div>
-                  <a
-                    href={`/${e._id}`}
-                    className="font-bold text-xl hover:text-blue-600 hover:cursor-pointer"
+                  <button
+                    onClick={() => {
+                      navigate(`/${e._id}`);
+                    }}
+                    className="self-start font-bold text-2xl hover:text-blue-600 hover:cursor-pointer"
                   >
                     {e.title.slice(0, 30)}
-                  </a>
+                  </button>
                   <div className="text-gray-400">
                     {e.description.slice(0, 400)}
                   </div>

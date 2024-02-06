@@ -9,6 +9,7 @@ import Createblogs from "./Pages/Createblogs/Createblogs";
 import Editblogs from "./Pages/Editblogs/Editblogs";
 import Oneblog from "./Pages/Oneblog/Oneblog";
 import Profile from "./Pages/Profile/Profile";
+import Layout from "./Layout/Layout";
 
 export default function App() {
   return (
@@ -16,14 +17,23 @@ export default function App() {
       <div className="app">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Main />} />
+            <Route path="/" element={<Layout Children={<Main />} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/myblog" element={<Myblogs />} />
-            <Route path="/createblog" element={<Createblogs />} />
-            <Route path="/editblogs/:id" element={<Editblogs />} />
-            <Route path="/:id" element={<Oneblog />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/myblog" element={<Layout Children={<Myblogs />} />} />
+            <Route
+              path="/createblog"
+              element={<Layout Children={<Createblogs />} />}
+            />
+            <Route
+              path="/editblogs/:id"
+              element={<Layout Children={<Editblogs />} />}
+            />
+            <Route path="/:id" element={<Layout Children={<Oneblog />} />} />
+            <Route
+              path="/profile"
+              element={<Layout Children={<Profile />} />}
+            />
           </Routes>
         </BrowserRouter>
       </div>

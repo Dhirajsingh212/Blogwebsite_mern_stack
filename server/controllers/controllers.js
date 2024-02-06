@@ -190,7 +190,11 @@ exports.updateblogs = async (req, res) => {
       });
     }
 
-    const photoUrl = await cloudinary.uploader.upload(req.body.previewSource);
+    const photoUrl = { url: blog.image };
+
+    if (req.body.previewSource) {
+      photoUrl = await cloudinary.uploader.upload(req.body.previewSource);
+    }
 
     await Blog.findByIdAndUpdate(
       { _id: req.headers.params },
@@ -235,6 +239,7 @@ exports.deleteblog = async (req, res) => {
 
     res.status(200).json({
       status: "success",
+      data,
     });
   } catch (err) {
     console.log(err);
