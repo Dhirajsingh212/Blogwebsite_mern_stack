@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    token: localStorage.getItem("token")
-      ? JSON.parse(localStorage.getItem("token"))
+    token: sessionStorage.getItem("token")
+      ? JSON.parse(sessionStorage.getItem("token"))
       : null,
     isFetching: false,
     isError: false,
@@ -15,7 +15,7 @@ const userSlice = createSlice({
     },
     authSuccess(state, action) {
       state.token = action.payload;
-      localStorage.setItem("token", JSON.stringify(action.payload));
+      sessionStorage.setItem("token", JSON.stringify(action.payload));
       state.isFetching = false;
       state.isError = false;
     },
@@ -25,8 +25,8 @@ const userSlice = createSlice({
     },
     logout(state, action) {
       state.token = null;
-      localStorage.setItem("token", null);
-      localStorage.setItem("userBlogs", JSON.stringify([]));
+      sessionStorage.setItem("token", null);
+      sessionStorage.setItem("userBlogs", JSON.stringify([]));
     },
   },
 });

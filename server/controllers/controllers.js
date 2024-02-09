@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const Blog = require("../models/BlogModel");
 const { cloudinary } = require("../cloudinary");
 const client = require("../redis");
+const generateTags = require("../utils");
 
 const jwt_sign = (id) => {
   return (token = jwt.sign({ id }, process.env.SECRET, {
@@ -87,11 +88,14 @@ exports.createBlog = async (req, res) => {
       photoUrl = await cloudinary.uploader.upload(req.body.previewSource);
     }
 
+    const tags = generateTags(req.body.title + req.body.descrip);
+
     const newBlog = await Blog.create({
       userId: decoded.id,
       username: user[0].username,
       title: req.body.title,
       description: req.body.descrip,
+      tags,
       image: photoUrl.url,
     });
 
@@ -233,12 +237,14 @@ exports.updateblogs = async (req, res) => {
     if (req.body.previewSource) {
       photoUrl = await cloudinary.uploader.upload(req.body.previewSource);
     }
+    const tags = generateTags(req.body.title + req.body.descrip);
 
     await Blog.findByIdAndUpdate(
       { _id: req.headers.params },
       {
         title: req.body.title,
         description: req.body.description,
+        tags,
         image: photoUrl.url,
       }
     );

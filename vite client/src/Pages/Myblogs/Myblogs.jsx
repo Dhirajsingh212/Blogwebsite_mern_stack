@@ -62,10 +62,12 @@ export default function Myblogs() {
                   />
                 </div>
                 <div className="max-w-screen-md py-10 flex-1  flex flex-col gap-4">
-                  <div className="flex flex-row gap-3">
-                    {[1, 2, 3].map((e) => {
-                      return <Tags event={e} />;
-                    })}
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3  lg:flex lg:flex-row lg:gap-3">
+                    {e.tags
+                      ? e.tags.map((tagEvent, tagid) => {
+                          return <Tags event={tagEvent} key={tagid} />;
+                        })
+                      : null}
                   </div>
                   <div className=" flex flex-col gap-4">
                     <button

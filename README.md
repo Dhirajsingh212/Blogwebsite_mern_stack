@@ -13,3 +13,7 @@ Improved all pages and added Tailwind css.
 ## Improved ui
 
 Improved all pages ui.
+
+## Added Auto Tags Feature
+
+automatic tag generator based on content.

@@ -40,11 +40,15 @@ export default function Oneblog() {
   return (
     <>
       <div className="flex flex-col py-10 px-20 max-sm:px-4 max-md:px-5 gap-5">
-        <h2 className="text-4xl font-bold text-teal-400">{data.title}</h2>
+        <h2 className="text-4xl font-bold text-teal-400 capitalize">
+          {data.title}
+        </h2>
         <div className="flex flex-wrap gap-3">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((e) => {
-            return <Tags event={e} />;
-          })}
+          {data.tags
+            ? data.tags.map((tagEvent, tagid) => {
+                return <Tags event={tagEvent} key={tagid} />;
+              })
+            : null}
         </div>
         <div className="flex flex-col-reverse gap-5">
           <div className="flex flex-col gap-4">

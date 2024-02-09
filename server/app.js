@@ -5,8 +5,6 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const UserRoutes = require("./routes/UserRoutes");
-const User = require("./models/UserModel");
-const jwt = require("jsonwebtoken");
 const client = require("./redis");
 
 dotenv.config({ path: "./.env" });

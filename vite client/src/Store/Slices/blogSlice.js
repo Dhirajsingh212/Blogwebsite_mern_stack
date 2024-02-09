@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const blogSlice = createSlice({
   name: "blog",
   initialState: {
-    blogs: localStorage.getItem("blogs")
-      ? JSON.parse(localStorage.getItem("blogs"))
+    blogs: sessionStorage.getItem("blogs")
+      ? JSON.parse(sessionStorage.getItem("blogs"))
       : [],
     isFetching: false,
     isError: false,
@@ -15,7 +15,7 @@ const blogSlice = createSlice({
     },
     fetchBlogSuccess(state, action) {
       state.blogs = action.payload;
-      localStorage.setItem("blogs", JSON.stringify(action.payload));
+      sessionStorage.setItem("blogs", JSON.stringify(action.payload));
       state.isFetching = false;
       state.isError = false;
     },
