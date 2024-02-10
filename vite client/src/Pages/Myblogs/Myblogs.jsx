@@ -63,7 +63,7 @@ export default function Myblogs() {
                 </div>
                 <div className="max-w-screen-md py-10 flex-1  flex flex-col gap-4">
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3  lg:flex lg:flex-row lg:gap-3">
-                    {e.tags
+                    {e.tags.length > 0
                       ? e.tags.map((tagEvent, tagid) => {
                           return <Tags event={tagEvent} key={tagid} />;
                         })
@@ -74,11 +74,13 @@ export default function Myblogs() {
                       onClick={() => {
                         navigate(`/${e._id}`);
                       }}
-                      className="p-0 m-0 self-start text-2xl font-bold hover:text-blue-500 hover:cursor-pointer"
+                      className="p-0 m-0 text-left text-2xl font-bold hover:text-blue-500 hover:cursor-pointer"
                     >
-                      {e.title}
+                      {e.title.slice(0, 150)}
                     </button>
-                    <p className="text-gray-500">{e.description}</p>
+                    <p className="text-gray-500">
+                      {e.description.slice(0, 500)}
+                    </p>
                   </div>
                   <div className="text-xl flex flex-row justify-end gap-6">
                     <button

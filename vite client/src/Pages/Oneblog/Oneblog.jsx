@@ -6,6 +6,7 @@ import { useState } from "react";
 import { getSingleBlog } from "../../functions";
 import Tags from "../../components/Tags/Tags";
 import Error from "../Error/Error";
+import SuggestedBlogs from "../../components/SuggestedBlogs/SuggestedBlogs";
 
 export default function Oneblog() {
   let params = useParams().id;
@@ -38,13 +39,13 @@ export default function Oneblog() {
   }
 
   return (
-    <>
-      <div className="flex flex-col py-10 px-20 max-sm:px-4 max-md:px-5 gap-5">
-        <h2 className="text-4xl font-bold text-teal-400 capitalize">
+    <div className="flex flex-col lg:flex-row gap-5 py-10 px-20 max-sm:px-4 max-md:px-5 ">
+      <div className=" flex flex-col gap-5">
+        <h2 className="text-3xl lg:text-4xl font-bold text-teal-400 capitalize">
           {data.title}
         </h2>
         <div className="flex flex-wrap gap-3">
-          {data.tags
+          {data.tags.length > 0
             ? data.tags.map((tagEvent, tagid) => {
                 return <Tags event={tagEvent} key={tagid} />;
               })
@@ -65,6 +66,9 @@ export default function Oneblog() {
           />
         </div>
       </div>
-    </>
+      <div className="">
+        <SuggestedBlogs />
+      </div>
+    </div>
   );
 }

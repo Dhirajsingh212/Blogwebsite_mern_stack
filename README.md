@@ -17,3 +17,7 @@ Improved all pages ui.
 ## Added Auto Tags Feature
 
 automatic tag generator based on content.
+
+## Added SingleBlogs Suggestions
+
+suggestions for single blog-pages.

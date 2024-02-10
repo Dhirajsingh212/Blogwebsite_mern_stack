@@ -42,7 +42,7 @@ export default function Blog() {
                   <div className="flex flex-row justify-between items-center text-gray-400">
                     <p>{getTime(e.updatedAt)}</p>
                     <div className="flex flex-row gap-4">
-                      {e.tags
+                      {e.tags.length > 0
                         ? e.tags.slice(0, 2).map((tagEvent, tagid) => {
                             return <Tags key={tagid} event={tagEvent} />;
                           })

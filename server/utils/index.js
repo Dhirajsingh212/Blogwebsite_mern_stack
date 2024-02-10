@@ -1,6 +1,7 @@
 function generateTags(content) {
   // List of common English stop words
   const stopWords = [
+    "%",
     "came",
     "come",
     "a",
@@ -206,7 +207,7 @@ function generateTags(content) {
   );
 
   // Return the top 5-6 words
-  const topWords = sortedWords.slice(0, 6);
+  const topWords = sortedWords.slice(0, 6).filter(Boolean);
 
   return topWords;
 }
