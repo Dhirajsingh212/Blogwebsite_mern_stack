@@ -7,6 +7,7 @@ import { getSingleBlog } from "../../functions";
 import Tags from "../../components/Tags/Tags";
 import Error from "../Error/Error";
 import SuggestedBlogs from "../../components/SuggestedBlogs/SuggestedBlogs";
+import Comments from "../../components/Comments/Comments";
 
 export default function Oneblog() {
   let params = useParams().id;
@@ -64,6 +65,9 @@ export default function Oneblog() {
             src={`${data.image}`}
             alt=""
           />
+        </div>
+        <div>
+          <Comments />
         </div>
       </div>
       <div className="">
