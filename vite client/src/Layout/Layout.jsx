@@ -12,7 +12,9 @@ export default function Main({ Children }) {
     <>
       <div>
         <Navbar />
-        <div style={{ minHeight: "700px" }}>{Children}</div>
+        <div className="lg:pt-20" style={{ minHeight: "700px" }}>
+          {Children}
+        </div>
         <Footer />
       </div>
     </>

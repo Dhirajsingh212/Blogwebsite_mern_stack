@@ -50,7 +50,10 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="navbar_div" id="navbar">
+      <div
+        className="navbar_div bg-black lg:fixed w-full z-50 bg-transparent backdrop-blur-xl"
+        id="navbar"
+      >
         <h2>CodeBlogs</h2>
         <ul className="navbar_ul text-xl font-bold">
           <li>
