@@ -21,3 +21,7 @@ automatic tag generator based on content.
 ## Added SingleBlogs Suggestions
 
 suggestions for single blog-pages.
+
+## Added Comments section
+
+added comments section in frontend and backend.

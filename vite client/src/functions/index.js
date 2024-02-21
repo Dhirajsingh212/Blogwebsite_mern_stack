@@ -120,3 +120,18 @@ export const updateBlog = (
   );
   return res;
 };
+
+//COMMENT ROUTES
+export const postComment = (text, token, params) => {
+  const res = axios.post(
+    `${base_url}post/comment`,
+    { text },
+    {
+      headers: {
+        token,
+        params,
+      },
+    }
+  );
+  return res;
+};

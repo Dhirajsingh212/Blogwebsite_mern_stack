@@ -304,3 +304,56 @@ exports.deleteblog = async (req, res) => {
     });
   }
 };
+
+//COMMENTS
+
+exports.createComment = async (req, res) => {
+  try {
+    const decoded = jwt.verify(req.headers.token, process.env.SECRET);
+    if (!decoded) {
+      res.status(401).json({
+        status: "fail",
+        message: "unauthorized access",
+      });
+      return;
+    }
+    const usrId = decoded.id;
+    const user = await User.findById({ _id: usrId });
+
+    let blog = await Blog.find({ _id: req.headers.params });
+
+    if (!user || !blog || blog.length < 1) {
+      res.status(404).json({
+        status: "Fail",
+        message: "Not Found",
+      });
+    }
+
+    const newComments = [
+      ...blog[0].comments,
+      {
+        text: req.body.text,
+        username: user.username,
+        userImage: user.profilePhoto,
+      },
+    ];
+
+    await Blog.findByIdAndUpdate(
+      { _id: req.headers.params },
+      { comments: newComments }
+    );
+
+    blog = await Blog.find({ _id: req.headers.params });
+
+    res.status(200).json({
+      status: "success",
+      blog,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      status: "Fail",
+      message: "Internal server error",
+    });
+  }
+};

@@ -3,7 +3,6 @@ import { getRandomInt } from "../../functions/utils";
 import { randomStyles } from "../../functions/colors";
 
 const Tags = (event) => {
-  console.log(event);
   return (
     <div
       // key={event}

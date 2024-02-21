@@ -27,7 +27,7 @@ export default function Blog() {
 
   return (
     <>
-      <div className="max-md:px-4 max-sm:py-20 py-28 gap-5 grid lg:grid-cols-3 lg:px-10 md:grid-cols-2 md:px-10">
+      <div className="max-md:px-4 max-sm:py-20 py-28 gap-5 grid lg:grid-cols-3 lg:px-20 md:grid-cols-2 md:px-10">
         {blogs.length > 0
           ? blogs.map((e, i) => {
               return (
@@ -53,7 +53,7 @@ export default function Blog() {
                     onClick={() => {
                       navigate(`/${e._id}`);
                     }}
-                    className="self-start font-bold text-2xl hover:text-blue-600 hover:cursor-pointer"
+                    className="self-start text-start font-bold text-2xl hover:text-blue-600 hover:cursor-pointer"
                   >
                     {e.title.slice(0, 30)}
                   </button>

@@ -50,7 +50,7 @@ export default function Createblogs() {
       const res = await createNewBlog(data, title, descrip, previewSource);
       dispatch(userBlogActions.fetchUserBlogSuccess(res.data.data));
       dispatch(blogActions.fetchBlogSuccess(res.data.newBlog));
-      navigate("/myblog");
+      navigate("/");
     } catch (err) {
       dispatch({ type: "NEW_BLOG_FAIL" });
     }

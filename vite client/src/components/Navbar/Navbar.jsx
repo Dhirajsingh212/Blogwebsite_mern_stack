@@ -54,7 +54,7 @@ export default function Navbar() {
         className="navbar_div bg-black lg:fixed w-full z-50 bg-transparent backdrop-blur-xl"
         id="navbar"
       >
-        <h2>CodeBlogs</h2>
+        <h2>QuickInsight</h2>
         <ul className="navbar_ul text-xl font-bold">
           <li>
             <button
@@ -156,7 +156,18 @@ export default function Navbar() {
                 navigate("/myblog");
               }}
             >
-              My Blogs
+              My blogs
+            </button>
+          </li>
+        ) : null}
+        {token !== null ? (
+          <li className="navbar_myblog">
+            <button
+              onClick={() => {
+                navigate("/createblog");
+              }}
+            >
+              Create new blog
             </button>
           </li>
         ) : null}

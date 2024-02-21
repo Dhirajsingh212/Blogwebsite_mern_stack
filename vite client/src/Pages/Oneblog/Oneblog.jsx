@@ -8,9 +8,12 @@ import Tags from "../../components/Tags/Tags";
 import Error from "../Error/Error";
 import SuggestedBlogs from "../../components/SuggestedBlogs/SuggestedBlogs";
 import Comments from "../../components/Comments/Comments";
+import PostComments from "../../components/PostComments/PostComments";
+import { useSelector } from "react-redux";
 
 export default function Oneblog() {
   let params = useParams().id;
+  const { token } = useSelector((state) => state.userReducer);
 
   const [data, setdata] = useState("");
   const [error, setError] = useState(false);
@@ -28,6 +31,10 @@ export default function Oneblog() {
         console.log(err);
       });
   }, []);
+
+  const setterFunc = (data) => {
+    setdata(data);
+  };
 
   if (loading) {
     return <div className="loading"></div>;
@@ -66,8 +73,13 @@ export default function Oneblog() {
             alt=""
           />
         </div>
+        {token && (
+          <div>
+            <PostComments setterFunc={setterFunc} />
+          </div>
+        )}
         <div>
-          <Comments />
+          <Comments commentsData={data.comments} />
         </div>
       </div>
       <div className="">

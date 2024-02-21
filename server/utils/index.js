@@ -1,6 +1,8 @@
 function generateTags(content) {
   // List of common English stop words
   const stopWords = [
+    "undefined",
+    ".",
     "%",
     "came",
     "come",
@@ -182,9 +184,9 @@ function generateTags(content) {
 
   // Clean the content by removing punctuation and converting to lowercase
   const cleanedContent = content
-    .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+    .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()%.]/g, "")
     .toLowerCase();
-
+  console.log(cleanedContent);
   // Split the content into an array of words
   const words = cleanedContent.split(/\s+/);
 

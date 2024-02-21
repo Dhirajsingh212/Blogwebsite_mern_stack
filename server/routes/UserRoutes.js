@@ -17,10 +17,12 @@ router
   .route("/getallblogs")
   .get(middlewares.cacheBlogs, controllers.getallblogs);
 router.route("/editblogs").get(controllers.editblogs);
-router.route("/updateblogs").patch(controllers.updateblogs); //*
+router.route("/updateblogs").patch(controllers.updateblogs);
 router.route("/deleteblogs").delete(controllers.deleteblog);
 router.route("/:id").get(controllers.getoneblog);
 
+//COMMENTS
+router.route("/post/comment").post(controllers.createComment);
 //CREATE EDIT AND DELETE USER
 router
   .route("/user/getdata")
