@@ -77,3 +77,29 @@ exports.cacheUserData = async (req, res, next) => {
     });
   }
 };
+
+exports.authenticator = async (req, res, next) => {
+  try {
+    let token = "";
+    if (req.headers.data) {
+      token = req.headers.data;
+    } else if (req.headers.token) {
+      token = req.headers.token;
+    }
+    const decoded = jwt.verify(token, process.env.SECRET);
+    if (!decoded) {
+      res.status(401).json({
+        status: "fail",
+        message: "unauthorized access",
+      });
+      return;
+    }
+    next();
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      status: "fail",
+      message: "Internal server error",
+    });
+  }
+};

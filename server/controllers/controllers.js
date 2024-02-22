@@ -70,13 +70,6 @@ exports.login = async (req, res) => {
 exports.createBlog = async (req, res) => {
   try {
     const decoded = jwt.verify(req.headers.data, process.env.SECRET);
-    if (!decoded) {
-      res.status(401).json({
-        status: "fail",
-        message: "unauthorized access",
-      });
-      return;
-    }
 
     const usrId = decoded.id;
 
@@ -122,13 +115,6 @@ exports.createBlog = async (req, res) => {
 exports.getuserblog = async (req, res) => {
   try {
     const decoded = jwt.verify(req.headers.data, process.env.SECRET);
-    if (!decoded) {
-      res.status(401).json({
-        status: "fail",
-        message: "unauthorized access",
-      });
-      return;
-    }
 
     let usrId = decoded.id;
 
@@ -188,13 +174,6 @@ exports.getallblogs = async (req, res) => {
 exports.editblogs = async (req, res) => {
   try {
     const decoded = jwt.verify(req.headers.token, process.env.SECRET);
-    if (!decoded) {
-      res.status(401).json({
-        status: "fail",
-        message: "unauthorized access",
-      });
-      return;
-    }
 
     const data = await Blog.find({ _id: req.headers.params });
 
@@ -213,13 +192,6 @@ exports.editblogs = async (req, res) => {
 exports.updateblogs = async (req, res) => {
   try {
     const decoded = jwt.verify(req.headers.token, process.env.SECRET);
-    if (!decoded) {
-      res.status(401).json({
-        status: "fail",
-        message: "unauthorized access",
-      });
-      return;
-    }
 
     let usrId = decoded.id;
 
@@ -310,13 +282,7 @@ exports.deleteblog = async (req, res) => {
 exports.createComment = async (req, res) => {
   try {
     const decoded = jwt.verify(req.headers.token, process.env.SECRET);
-    if (!decoded) {
-      res.status(401).json({
-        status: "fail",
-        message: "unauthorized access",
-      });
-      return;
-    }
+
     const usrId = decoded.id;
     const user = await User.findById({ _id: usrId });
 

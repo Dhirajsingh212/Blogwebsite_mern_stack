@@ -8,13 +8,6 @@ exports.getuserdata = async (req, res) => {
   try {
     const decoded = jwt.verify(req.headers.token, process.env.SECRET);
 
-    if (!decoded) {
-      return res.status(401).json({
-        status: "fail",
-        message: "unauthorized access",
-      });
-    }
-
     const userId = decoded.id;
 
     const data = await User.find({ _id: userId });
@@ -37,13 +30,6 @@ exports.getuserdata = async (req, res) => {
 exports.updateuserdata = async (req, res) => {
   try {
     const decoded = jwt.verify(req.headers.token, process.env.SECRET);
-
-    if (!decoded) {
-      return res.status(401).json({
-        status: "fail",
-        messege: "unauthorized access",
-      });
-    }
 
     const userId = decoded.id;
 
@@ -75,12 +61,6 @@ exports.updateuserdata = async (req, res) => {
 exports.deleteuser = async (req, res) => {
   try {
     const decoded = jwt.verify(req.headers.token, process.env.SECRET);
-    if (!decoded) {
-      return res.status(401).json({
-        status: "fail",
-        messege: "unauthorized access",
-      });
-    }
 
     const userId = decoded.id;
 
@@ -106,14 +86,7 @@ exports.deleteuser = async (req, res) => {
 
 exports.logoutUser = async (req, res) => {
   try {
-    // console.log(req.headers.token);
     const decoded = jwt.verify(req.headers.token, process.env.SECRET);
-    if (!decoded) {
-      return res.status(401).json({
-        status: "fail",
-        messege: "unauthorized access",
-      });
-    }
 
     const userId = decoded.id;
 

@@ -183,10 +183,10 @@ function generateTags(content) {
   ];
 
   // Clean the content by removing punctuation and converting to lowercase
-  const cleanedContent = content
+  let cleanedContent = content
     .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()%.]/g, "")
     .toLowerCase();
-  console.log(cleanedContent);
+  cleanedContent = cleanedContent.replace(/undefined/g, "");
   // Split the content into an array of words
   const words = cleanedContent.split(/\s+/);
 
