@@ -42,7 +42,11 @@ export default function Login() {
 
   if (isError) {
     return (
-      <Error errCode={"404"} errMsg={"Something Went Wrong Please Refresh"} />
+      <Error
+        errCode={"404"}
+        errMsg={"Something Went Wrong Please Refresh"}
+        disable={true}
+      />
     );
   }
 

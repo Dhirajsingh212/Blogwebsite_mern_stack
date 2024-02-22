@@ -3,12 +3,13 @@ import "./Profile.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteUser, getUser, updateUser } from "../../functions";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../Store";
 import Error from "../Error/Error";
 
 export default function Profile() {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { token, isFetching, isError } = useSelector(
     (state) => state.userReducer

@@ -35,9 +35,13 @@ export default function Signup() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    dispatch(userActions.authStart());
 
     try {
+      if (passwrd !== cnfpasswrd) {
+        alert("Password not same");
+        return;
+      }
+      dispatch(userActions.authStart());
       const res = await signupFunction(email, usrname, passwrd, cnfpasswrd);
 
       dispatch(userActions.authSuccess(res.data.token));
@@ -54,7 +58,11 @@ export default function Signup() {
 
   if (isError) {
     return (
-      <Error errCode={"404"} errMsg={"Something Went Wrong Please Refresh"} />
+      <Error
+        errCode={"404"}
+        errMsg={"Something Went Wrong Please Refresh"}
+        disable={true}
+      />
     );
   }
 
