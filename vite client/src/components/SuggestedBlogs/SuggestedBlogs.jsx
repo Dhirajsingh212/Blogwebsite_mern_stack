@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { vercel_base_url } from "../../functions";
 
 const SuggestedBlogs = () => {
   const { blogs } = useSelector((state) => state.blogReducer);
@@ -24,8 +25,9 @@ const SuggestedBlogs = () => {
                 >
                   <button
                     onClick={() => {
-                      // window.location.href = `/${e._id}`;
-                      navigate(`/${e._id}`);
+                      window.location.href = `/${e._id}`;
+                      // navigate(`/${e._id}`);
+                      // window.location.reload();
                     }}
                     className="text-start text-xl font-bold cursor-pointer hover:text-blue-600"
                   >

@@ -1,5 +1,6 @@
 import axios from "axios";
 export const base_url = import.meta.env.VITE_BASE_URL;
+export const vercel_base_url = import.meta.env.VITE_VERCEL_BASE_URL;
 
 //USER ROUTES
 export const loginFunction = (username, password) => {
