@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const SuggestedBlogs = () => {
   const { blogs } = useSelector((state) => state.blogReducer);
+  const navigate = useNavigate();
 
   const [data, setData] = useState([...blogs]);
   data.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
@@ -22,7 +24,8 @@ const SuggestedBlogs = () => {
                 >
                   <button
                     onClick={() => {
-                      window.location.href = `/${e._id}`;
+                      // window.location.href = `/${e._id}`;
+                      navigate(`/${e._id}`);
                     }}
                     className="text-start text-xl font-bold cursor-pointer hover:text-blue-600"
                   >
