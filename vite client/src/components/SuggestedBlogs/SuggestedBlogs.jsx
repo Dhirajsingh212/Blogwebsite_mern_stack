@@ -26,8 +26,6 @@ const SuggestedBlogs = () => {
                   <button
                     onClick={() => {
                       window.location.href = `/${e._id}`;
-                      // navigate(`/${e._id}`);
-                      // window.location.reload();
                     }}
                     className="text-start text-xl font-bold cursor-pointer hover:text-blue-600"
                   >

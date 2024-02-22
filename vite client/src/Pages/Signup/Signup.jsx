@@ -79,7 +79,7 @@ export default function Signup() {
         </button>
       </div>
       <div className="signup_div container">
-        <p>Sign Into CodeBlog</p>
+        <p>Sign Into QuickInsight</p>
         <form className="container signup_input" onSubmit={submitHandler}>
           <input
             type="username"
@@ -104,7 +104,7 @@ export default function Signup() {
           />
           <input
             type="password"
-            placeholder="confirm Password"
+            placeholder="Confirm password"
             value={cnfpasswrd}
             onChange={changecnfpasswrd}
             required

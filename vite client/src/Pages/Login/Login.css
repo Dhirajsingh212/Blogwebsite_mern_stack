@@ -1,5 +1,4 @@
 .signup_link_div {
-  /* margin-top: 1em; */
   text-align: right;
 }
 
@@ -39,6 +38,8 @@
   font-size: 1.3em;
   border-bottom: 1px solid grey;
   color: white;
+  padding: 0.5em;
+  border-radius: 0.5em;
 }
 
 .login_input input:focus {
@@ -62,6 +63,9 @@
 @media screen and (min-width: 769px) {
   .login_input {
     width: 50%;
+  }
+  .login_div {
+    padding: 0em 20em;
   }
 }
 @media screen and (max-width: 500px) {

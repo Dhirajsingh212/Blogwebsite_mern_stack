@@ -57,7 +57,7 @@ export default function Login() {
         </button>
       </div>
       <div className="login_div container">
-        <p>Log Into CodeBlog</p>
+        <p>Log Into QuickInsight</p>
         <form className="container login_input" onSubmit={submitHandler}>
           <input
             type="username"
