@@ -8,7 +8,9 @@ import Tags from "../Tags/Tags";
 
 export default function Blog() {
   const { token } = useSelector((state) => state.userReducer);
-  const { blogs } = useSelector((state) => state.blogReducer);
+  const { blogs, isFetching, isError } = useSelector(
+    (state) => state.blogReducer
+  );
   let navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -24,6 +26,10 @@ export default function Blog() {
         dispatch(blogActions.fetchBlogFail());
       });
   }, []);
+
+  if (isFetching) {
+    return <div className="loading"></div>;
+  }
 
   return (
     <>

@@ -5,9 +5,7 @@ const middlewares = require("../middlewares");
 const router = express.Router();
 
 //AUTHENTICATION AND AUTHORIZATION
-router.route("/").get((req, res) => {
-  res.send("success");
-});
+
 router.route("/signup").post(controllers.signup);
 router.route("/login").post(controllers.login);
 

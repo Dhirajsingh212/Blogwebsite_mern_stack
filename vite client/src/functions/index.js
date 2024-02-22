@@ -1,5 +1,5 @@
 import axios from "axios";
-export const base_url = "http://localhost:8000/";
+export const base_url = await import.meta.env.VITE_BASE_URL;
 
 //USER ROUTES
 export const loginFunction = (username, password) => {
