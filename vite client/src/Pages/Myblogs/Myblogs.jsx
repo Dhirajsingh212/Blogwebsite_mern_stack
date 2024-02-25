@@ -62,7 +62,7 @@ export default function Myblogs() {
                   />
                 </div>
                 <div className="max-w-screen-md py-10 flex-1  flex flex-col gap-4">
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3  lg:flex lg:flex-row lg:gap-3">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3  lg:flex lg:flex-row lg:gap-3 flex-wrap">
                     {e.tags.length > 0
                       ? e.tags.map((tagEvent, tagid) => {
                           return <Tags event={tagEvent} key={tagid} />;

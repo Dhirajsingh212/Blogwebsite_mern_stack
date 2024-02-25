@@ -25,3 +25,7 @@ suggestions for single blog-pages.
 ## Added Comments section
 
 added comments section in frontend and backend.
+
+## Added Gemini for Ai tagging.
+
+integrated gemini.ai for tagging the blogs based on the content.

@@ -81,7 +81,7 @@ exports.createBlog = async (req, res) => {
       photoUrl = await cloudinary.uploader.upload(req.body.previewSource);
     }
 
-    const tags = generateTags(req.body.title + req.body.descrip);
+    const tags = await generateTags(req.body.title + req.body.descrip);
 
     const newBlog = await Blog.create({
       userId: decoded.id,
@@ -209,7 +209,7 @@ exports.updateblogs = async (req, res) => {
     if (req.body.previewSource) {
       photoUrl = await cloudinary.uploader.upload(req.body.previewSource);
     }
-    const tags = generateTags(req.body.title + req.body.descrip);
+    const tags = await generateTags(req.body.title + req.body.descrip);
 
     await Blog.findByIdAndUpdate(
       { _id: req.headers.params },
