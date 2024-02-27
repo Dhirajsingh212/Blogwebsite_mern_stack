@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { blogActions, userBlogActions } from "../../Store";
 import Error from "../Error/Error";
 import Tags from "../../components/Tags/Tags";
+import MyBlogSkeleton from "../../skeleton/MyBlogSkeleton";
 
 export default function Myblogs() {
   const { token } = useSelector((state) => state.userReducer);
@@ -35,7 +36,7 @@ export default function Myblogs() {
   }, []);
 
   if (isFetching) {
-    return <div className="loading"></div>;
+    return <MyBlogSkeleton />;
   }
   if (isError) {
     return (

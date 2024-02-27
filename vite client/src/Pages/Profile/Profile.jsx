@@ -6,6 +6,7 @@ import { deleteUser, getUser, updateUser } from "../../functions";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../Store";
 import Error from "../Error/Error";
+import ProfileSkeleton from "../../skeleton/ProfileSkeleton";
 
 export default function Profile() {
   let navigate = useNavigate();
@@ -20,6 +21,7 @@ export default function Profile() {
   const [email, setemail] = useState("");
   const [img, setimg] = useState("");
   const [previewSource, setPreviewSource] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const previewFile = (file) => {
     const reader = new FileReader();
@@ -36,8 +38,10 @@ export default function Profile() {
         setusername(res.data.data[0].username);
         setemail(res.data.data[0].email);
         setimg(res.data.data[0].profilePhoto);
+        setLoading(false);
       })
       .catch((err) => {
+        setLoading(false);
         console.log(err);
       });
   }, []);
@@ -63,8 +67,8 @@ export default function Profile() {
     }
   };
 
-  if (isFetching) {
-    return <div>loading</div>;
+  if (isFetching || loading) {
+    return <ProfileSkeleton />;
   }
 
   if (isError) {
