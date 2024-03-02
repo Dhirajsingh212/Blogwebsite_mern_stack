@@ -32,6 +32,14 @@ export default function Blog() {
     return <BlogSkeleton />;
   }
 
+  if (blogs.length == 0) {
+    return (
+      <div className="px-20 text-center py-10 text-gray-500">
+        No Blogs Found
+      </div>
+    );
+  }
+
   return (
     <>
       {blogs.length > 0 ? (
