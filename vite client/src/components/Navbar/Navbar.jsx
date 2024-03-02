@@ -6,6 +6,7 @@ import { useState } from "react";
 import { getUser, logoutUser } from "../../functions";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../Store";
+import SearchBar from "../SearchBar/SearchBar";
 
 export default function Navbar() {
   let navigate = useNavigate();
@@ -66,6 +67,7 @@ export default function Navbar() {
               Home
             </button>
           </li>
+
           {token !== null ? (
             <li className="navbar_myblog">
               <button
@@ -120,6 +122,9 @@ export default function Navbar() {
               />
             </li>
           ) : null}
+          <li>
+            <SearchBar />
+          </li>
         </ul>
         <div className="navbar_ul_responsive_button">
           <button onClick={responsiveHandler}>

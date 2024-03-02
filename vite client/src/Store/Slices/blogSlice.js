@@ -23,6 +23,24 @@ const blogSlice = createSlice({
       state.isFetching = false;
       state.isError = true;
     },
+    searchBlogs(state, action) {
+      if (action.payload.term.length <= 0) {
+        state.blogs = sessionStorage.getItem("blogs")
+          ? JSON.parse(sessionStorage.getItem("blogs"))
+          : [];
+      } else {
+        state.blogs = state.blogs.filter((item) => {
+          return item.title
+            .toLowerCase()
+            .includes(action.payload.term.trim().toLowerCase());
+        });
+      }
+    },
+    resetSearchBlogs(state, action) {
+      state.blogs = sessionStorage.getItem("blogs")
+        ? JSON.parse(sessionStorage.getItem("blogs"))
+        : [];
+    },
   },
 });
 

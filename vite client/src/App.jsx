@@ -10,6 +10,7 @@ import Editblogs from "./Pages/Editblogs/Editblogs";
 import Oneblog from "./Pages/Oneblog/Oneblog";
 import Profile from "./Pages/Profile/Profile";
 import Layout from "./Layout/Layout";
+import SearchPage from "./Pages/SearchPage/SearchPage";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout Children={<Main />} />} />
+            <Route path="/search" element={<SearchPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/myblog" element={<Layout Children={<Myblogs />} />} />
