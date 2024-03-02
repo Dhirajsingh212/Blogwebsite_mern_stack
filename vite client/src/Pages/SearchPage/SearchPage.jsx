@@ -21,7 +21,7 @@ const SearchPage = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <nav className="max-sm:px-4 px-20 py-4 bg-black lg:fixed w-full z-50 bg-transparent backdrop-blur-xl">
+      <nav className="px-10 lg:px-20 max-md:px-4 py-4 bg-black lg:fixed w-full z-50 bg-transparent backdrop-blur-xl">
         <div className="flex flex-col gap-4 md:flex-row md:justify-between">
           <div className="flex flex-row justify-between items-center">
             <p className="text-2xl">QuickInsight</p>
@@ -29,6 +29,7 @@ const SearchPage = () => {
           <div className="flex flex-row items-center md:gap-4 gap-2">
             <input
               type="text"
+              placeholder="Search here."
               value={searchInput}
               onChange={(e) => {
                 setSearchInput(e.target.value);

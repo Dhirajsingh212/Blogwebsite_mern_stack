@@ -141,6 +141,9 @@ export default function Navbar() {
               />
             </div>
           ) : null}
+          <div className="self-center">
+            <SearchBar />
+          </div>
         </div>
       </div>
 
