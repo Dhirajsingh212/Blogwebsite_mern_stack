@@ -29,7 +29,10 @@ const blogSlice = createSlice({
           ? JSON.parse(sessionStorage.getItem("blogs"))
           : [];
       } else {
-        state.blogs = state.blogs.filter((item) => {
+        const blogsData = sessionStorage.getItem("blogs")
+          ? JSON.parse(sessionStorage.getItem("blogs"))
+          : [];
+        state.blogs = blogsData.filter((item) => {
           return item.title
             .toLowerCase()
             .includes(action.payload.term.trim().toLowerCase());

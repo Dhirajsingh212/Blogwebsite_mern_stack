@@ -17,8 +17,8 @@ export default function Blog() {
 
   //FETCHING THE DATA FOR ALL THE BLOGS
   useEffect(() => {
-    let data = token;
     dispatch(blogActions.fetchBlogStart());
+    let data = token;
     getAllBlogs(data)
       .then((res) => {
         dispatch(blogActions.fetchBlogSuccess(res.data.data));

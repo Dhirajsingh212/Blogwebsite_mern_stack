@@ -9,12 +9,6 @@ const SearchPage = () => {
   const [searchInput, setSearchInput] = useState("");
   const dispatch = useDispatch();
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Backspace" && searchInput.length > 0) {
-      dispatch(blogActions.resetSearchBlogs());
-    }
-  };
-
   useEffect(() => {
     dispatch(blogActions.searchBlogs({ term: searchInput }));
   }, [searchInput]);
@@ -34,7 +28,6 @@ const SearchPage = () => {
               onChange={(e) => {
                 setSearchInput(e.target.value);
               }}
-              onKeyDown={handleKeyDown}
               className="rounded-sm px-2 py-1 text-black w-full focus:outline-none "
             />
             <SearchBar />
