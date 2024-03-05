@@ -56,10 +56,13 @@ export default function Createblogs() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
+    if (language === "") {
+      alert("Please Enter Valid Language");
+      return;
+    }
     var data = token;
-    dispatch(userBlogActions.fetchUserBlogStart());
     try {
+      dispatch(userBlogActions.fetchUserBlogStart());
       const res = await createNewBlog(
         data,
         title,

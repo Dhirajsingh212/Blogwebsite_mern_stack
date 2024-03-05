@@ -73,8 +73,12 @@ export default function Editblogs() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    dispatch(userBlogActions.fetchUserBlogStart());
+    if (language === "") {
+      alert("Please Enter Valid Language");
+      return;
+    }
     try {
+      dispatch(userBlogActions.fetchUserBlogStart());
       const res = await updateBlog(
         title,
         description,
