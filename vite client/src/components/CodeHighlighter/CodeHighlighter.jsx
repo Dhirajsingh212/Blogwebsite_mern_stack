@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Prism from "prismjs";
-import "../../../node_modules/prismjs/themes/prism.all-dark.css";
+import "./CodeHighligher.css";
 
 export default function CodeHighligher({ code, language }) {
   useEffect(() => {
