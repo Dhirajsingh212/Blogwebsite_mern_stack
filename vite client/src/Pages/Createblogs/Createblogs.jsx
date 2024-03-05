@@ -77,13 +77,15 @@ export default function Createblogs() {
       >
         <textarea
           type="text"
+          className="textarea textarea-secondary text-xl"
           placeholder="Title"
           value={title}
           name="title"
           onChange={changetitle}
           required
-        />
+        ></textarea>
         <textarea
+          className="textarea textarea-secondary text-xl"
           type="text"
           placeholder="Description"
           name="description"
@@ -93,7 +95,13 @@ export default function Createblogs() {
         />
 
         {previewSource && <img src={previewSource} alt="" />}
-        <input type="file" filename="image" onChange={changeimglink} />
+
+        <input
+          type="file"
+          className="file-input file-input-bordered w-full max-w-xs"
+          filename="image"
+          onChange={changeimglink}
+        />
         <button type="submit">Publish</button>
       </form>
     </div>

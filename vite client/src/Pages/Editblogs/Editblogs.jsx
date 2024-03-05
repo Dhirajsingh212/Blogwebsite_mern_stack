@@ -27,6 +27,7 @@ export default function Editblogs() {
     // let token = token;
     editBlog(params, token)
       .then((res) => {
+        console.log(res.data.data[0]);
         settitle(res.data.data[0].title);
         setdescription(res.data.data[0].description);
       })
@@ -93,6 +94,8 @@ export default function Editblogs() {
       >
         <textarea
           type="text"
+          className="textarea textarea-secondary text-xl"
+          placeholder="Title"
           value={title}
           name="title"
           required
@@ -100,12 +103,19 @@ export default function Editblogs() {
         />
         <textarea
           type="text"
+          className="textarea textarea-secondary text-xl"
+          placeholder="Description"
           value={description}
           onChange={changedescrip}
           name="description"
           required
         />
-        <input type="file" name="image" onChange={changeimage} />
+        <input
+          type="file"
+          className="file-input file-input-bordered w-full max-w-xs"
+          name="image"
+          onChange={changeimage}
+        />
         {previewSource && <img src={previewSource} alt="" />}
         <button>Update</button>
       </form>
