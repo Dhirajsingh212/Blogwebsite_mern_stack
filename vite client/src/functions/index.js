@@ -81,10 +81,17 @@ export const getSingleBlog = (params) => {
   return res;
 };
 
-export const createNewBlog = (data, title, descrip, previewSource) => {
+export const createNewBlog = (
+  data,
+  title,
+  descrip,
+  previewSource,
+  language,
+  code
+) => {
   const res = axios.post(
     `${base_url}newBlogs`,
-    { title, descrip, previewSource },
+    { title, descrip, previewSource, language, code },
     {
       headers: { data },
     }
@@ -105,13 +112,15 @@ export const editBlog = (params, token) => {
 export const updateBlog = (
   title,
   description,
+  code,
+  language,
   previewSource,
   token,
   params
 ) => {
   const res = axios.patch(
     `${base_url}updateblogs`,
-    { title, description, previewSource },
+    { title, description, previewSource, code, language },
     {
       headers: {
         token,

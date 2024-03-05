@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { blogActions, userBlogActions } from "../../Store";
 import Error from "../Error/Error";
 import Loader from "../../components/Loader/Loader";
+import CodeHighligher from "../../components/CodeHighlighter/CodeHighlighter";
+import SelectLanguages from "../../components/SelectLanguages/SelectLanguages";
 
 export default function Createblogs() {
   let navigate = useNavigate();
@@ -19,6 +21,8 @@ export default function Createblogs() {
 
   const [title, settitle] = useState("");
   const [descrip, setdescrip] = useState("");
+  const [code, setCode] = useState("");
+  const [language, setLanguage] = useState("");
   const [previewSource, setPreviewSource] = useState("");
 
   const changetitle = (e) => {
@@ -27,6 +31,14 @@ export default function Createblogs() {
 
   const changedescrip = (e) => {
     setdescrip(e.target.value);
+  };
+
+  const changeCode = (e) => {
+    setCode(e.target.value);
+  };
+
+  const changeLanguage = (e) => {
+    setLanguage(e.target.value);
   };
 
   const changeimglink = (e) => {
@@ -48,7 +60,14 @@ export default function Createblogs() {
     var data = token;
     dispatch(userBlogActions.fetchUserBlogStart());
     try {
-      const res = await createNewBlog(data, title, descrip, previewSource);
+      const res = await createNewBlog(
+        data,
+        title,
+        descrip,
+        previewSource,
+        language,
+        code
+      );
       dispatch(userBlogActions.fetchUserBlogSuccess(res.data.data));
       dispatch(blogActions.fetchBlogSuccess(res.data.newBlog));
       navigate("/");
@@ -93,6 +112,23 @@ export default function Createblogs() {
           value={descrip}
           onChange={changedescrip}
           required
+        />
+        <div>
+          <SelectLanguages
+            language={language}
+            changeLanguage={changeLanguage}
+          />
+        </div>
+        <div>
+          <CodeHighligher code={code} language="c++" />
+        </div>
+        <textarea
+          className="textarea textarea-secondary text-xl"
+          type="text"
+          placeholder="Code"
+          name="code"
+          value={code}
+          onChange={changeCode}
         />
 
         {previewSource && <img src={previewSource} alt="" />}

@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { blogActions, userBlogActions } from "../../Store";
 import Error from "../Error/Error";
 import Loader from "../../components/Loader/Loader";
+import SelectLanguages from "../../components/SelectLanguages/SelectLanguages";
+import CodeHighligher from "../../components/CodeHighlighter/CodeHighlighter";
 
 export default function Editblogs() {
   const { token } = useSelector((state) => state.userReducer);
@@ -22,14 +24,17 @@ export default function Editblogs() {
 
   const [description, setdescription] = useState("");
   const [title, settitle] = useState("");
+  const [code, setCode] = useState("");
+  const [language, setLanguage] = useState("");
   const [previewSource, setPreviewSource] = useState("");
 
   useEffect(() => {
     // let token = token;
     editBlog(params, token)
       .then((res) => {
-        console.log(res.data.data[0]);
         settitle(res.data.data[0].title);
+        setCode(res.data.data[0].code ? res.data.data[0].code : "");
+        setLanguage(res.data.data[0].language ? res.data.data[0].language : "");
         setdescription(res.data.data[0].description);
       })
       .catch((err) => {
@@ -43,6 +48,14 @@ export default function Editblogs() {
 
   const changedescrip = (e) => {
     setdescription(e.target.value);
+  };
+
+  const changeCode = (e) => {
+    setCode(e.target.value);
+  };
+
+  const changeLanguage = (e) => {
+    setLanguage(e.target.value);
   };
 
   const changeimage = (e) => {
@@ -65,6 +78,8 @@ export default function Editblogs() {
       const res = await updateBlog(
         title,
         description,
+        code,
+        language,
         previewSource,
         token,
         params
@@ -110,6 +125,23 @@ export default function Editblogs() {
           onChange={changedescrip}
           name="description"
           required
+        />
+        <div>
+          <SelectLanguages
+            language={language}
+            changeLanguage={changeLanguage}
+          />
+        </div>
+        <div>
+          <CodeHighligher code={code} language="c++" />
+        </div>
+        <textarea
+          className="textarea textarea-secondary text-xl"
+          type="text"
+          placeholder="Code"
+          name="code"
+          value={code}
+          onChange={changeCode}
         />
         <input
           type="file"

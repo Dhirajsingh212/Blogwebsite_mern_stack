@@ -11,6 +11,7 @@ import Comments from "../../components/Comments/Comments";
 import PostComments from "../../components/PostComments/PostComments";
 import { useSelector } from "react-redux";
 import Loader from "../../components/Loader/Loader";
+import CodeHighligher from "../../components/CodeHighlighter/CodeHighlighter";
 
 export default function Oneblog() {
   let params = useParams().id;
@@ -60,19 +61,24 @@ export default function Oneblog() {
               })
             : null}
         </div>
-        <div className="flex flex-col-reverse gap-5">
-          <div className="flex flex-col gap-4">
-            <p className="text-xl">{data.description}</p>
-            <h5 className="flex flex-col text-gray-400 text-lg">
-              <span>Owned</span>
-              {data.username}
-            </h5>
-          </div>
+        <div className="flex flex-col gap-5">
           <img
             className="h-full w-full object-cover rounded-lg"
             src={`${data.image}`}
             alt=""
           />
+          <div className="flex flex-col gap-4">
+            <p className="text-xl">{data.description}</p>
+            {data.code && (
+              <div>
+                <CodeHighligher code={data.code} language={data.language} />
+              </div>
+            )}
+            <h5 className="flex flex-col text-gray-400 text-lg">
+              <span>Owned</span>
+              {data.username}
+            </h5>
+          </div>
         </div>
         {token && (
           <div>

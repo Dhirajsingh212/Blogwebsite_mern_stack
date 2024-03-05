@@ -25,6 +25,15 @@ const blogSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    language: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    code: {
+      type: String,
+      required: true,
+    },
     image: {
       type: String,
       default:

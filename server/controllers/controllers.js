@@ -88,6 +88,8 @@ exports.createBlog = async (req, res) => {
       username: user[0].username,
       title: req.body.title,
       description: req.body.descrip,
+      code: req.body.code ? req.body.code : "",
+      language: req.body.language ? req.body.language : "",
       tags,
       image: photoUrl.url,
     });
@@ -216,6 +218,8 @@ exports.updateblogs = async (req, res) => {
       {
         title: req.body.title,
         description: req.body.description,
+        code: req.body.code ? req.body.code : "",
+        language: req.body.language ? req.body.language : "",
         tags,
         image: photoUrl.url,
       }
