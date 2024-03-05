@@ -7,6 +7,11 @@ export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
+    build: {
+      rollupOptions: {
+        external: ["prismjs/themes/prism.all-dark.css"],
+      },
+    },
     plugins: [react()],
     // vite config
     define: {
