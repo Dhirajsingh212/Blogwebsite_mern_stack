@@ -14,6 +14,7 @@ export default function SelectLanguages({ language, changeLanguage }) {
     <div>
       <select
         value={language}
+        required
         onChange={changeLanguage}
         className="select w-full max-w-xs overflow-scroll"
       >
