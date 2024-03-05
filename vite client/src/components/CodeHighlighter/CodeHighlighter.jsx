@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Prism from "prismjs";
-import "./CodeHighligher.css";
+import "./CodeHighlighter.css";
 
 export default function CodeHighligher({ code, language }) {
   useEffect(() => {
