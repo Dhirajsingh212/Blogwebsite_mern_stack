@@ -8,6 +8,7 @@ import { editBlog, updateBlog } from "../../functions";
 import { useDispatch, useSelector } from "react-redux";
 import { blogActions, userBlogActions } from "../../Store";
 import Error from "../Error/Error";
+import Loader from "../../components/Loader/Loader";
 
 export default function Editblogs() {
   const { token } = useSelector((state) => state.userReducer);
@@ -77,7 +78,7 @@ export default function Editblogs() {
   };
 
   if (isFetching) {
-    return <div className="loading"></div>;
+    return <Loader />;
   }
   if (isError) {
     return <div>error</div>;

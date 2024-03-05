@@ -6,6 +6,7 @@ import { createNewBlog } from "../../functions";
 import { useDispatch, useSelector } from "react-redux";
 import { blogActions, userBlogActions } from "../../Store";
 import Error from "../Error/Error";
+import Loader from "../../components/Loader/Loader";
 
 export default function Createblogs() {
   let navigate = useNavigate();
@@ -57,7 +58,7 @@ export default function Createblogs() {
   };
 
   if (isFetching) {
-    return <div className="loading"></div>;
+    return <Loader />;
   }
 
   if (isError) {

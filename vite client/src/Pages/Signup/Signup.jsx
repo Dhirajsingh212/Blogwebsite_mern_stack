@@ -6,6 +6,7 @@ import { signupFunction } from "../../functions";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../Store";
 import Error from "../Error/Error";
+import Loader from "../../components/Loader/Loader";
 
 export default function Signup() {
   let navigate = useNavigate();
@@ -53,7 +54,7 @@ export default function Signup() {
   };
 
   if (isFetching) {
-    return <div className="loading"></div>;
+    return <Loader />;
   }
 
   if (isError) {
@@ -67,7 +68,7 @@ export default function Signup() {
   }
 
   return (
-    <>
+    <div className="min-h-screen">
       <div className="login_link_div">
         <button
           onClick={() => {
@@ -120,6 +121,6 @@ export default function Signup() {
           <button>Signup</button>
         </form>
       </div>
-    </>
+    </div>
   );
 }

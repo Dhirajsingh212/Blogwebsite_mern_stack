@@ -30,7 +30,7 @@ const PostComments = ({ setterFunc }) => {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Type your comments here."
-          className="px-2 font-sans rounded-md text-black h-10 w-full border-none focus:outline-none"
+          className="px-2 font-sans rounded-md  h-10 w-full border-none focus:outline-none"
         />
         <button className="max-sm:self-center self-end text-lg bg-blue-600 rounded-md px-10 py-1">
           Post

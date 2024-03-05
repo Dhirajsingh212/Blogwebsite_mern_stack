@@ -10,6 +10,7 @@ import SuggestedBlogs from "../../components/SuggestedBlogs/SuggestedBlogs";
 import Comments from "../../components/Comments/Comments";
 import PostComments from "../../components/PostComments/PostComments";
 import { useSelector } from "react-redux";
+import Loader from "../../components/Loader/Loader";
 
 export default function Oneblog() {
   let params = useParams().id;
@@ -37,7 +38,7 @@ export default function Oneblog() {
   };
 
   if (loading) {
-    return <div className="loading"></div>;
+    return <Loader />;
   }
 
   if (error) {
