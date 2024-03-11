@@ -54,9 +54,10 @@ export default function Blog() {
                     className="w-full h-60 object-cover rounded-lg"
                   />
                 </div>
-                <div className="max-sm:flex-col max-sm:gap-4 flex md:flex-row md:items-center text-gray-400">
-                  <p>{getTime(e.updatedAt)}</p>
-                  <div className="flex flex-row gap-4">
+                {/* max-sm:gap-4 flex md:flex-row md:items-center text-gray-400 */}
+                <div className="flex-row flex items-center justify-between gap-5 text-gray-400">
+                  <p className="self-start">{getTime(e.updatedAt)}</p>
+                  <div className="self-end flex flex-row gap-4">
                     {e.tags.length > 0
                       ? e.tags.slice(0, 2).map((tagEvent, tagid) => {
                           return <Tags key={tagid} event={tagEvent} />;

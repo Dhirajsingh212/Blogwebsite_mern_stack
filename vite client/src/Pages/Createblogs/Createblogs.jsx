@@ -142,7 +142,9 @@ export default function Createblogs() {
           filename="image"
           onChange={changeimglink}
         />
-        <button type="submit">Publish</button>
+        <button type="submit" className="shadow-xl">
+          Publish
+        </button>
       </form>
     </div>
   );
