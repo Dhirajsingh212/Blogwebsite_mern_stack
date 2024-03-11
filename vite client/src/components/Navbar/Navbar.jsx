@@ -32,27 +32,10 @@ export default function Navbar() {
     dispatch(userActions.logout());
   };
 
-  const [flag, setflag] = useState(false);
-
-  useEffect(() => {
-    if (flag === true) {
-      document.getElementsByClassName("navbar_ul_responsive")[0].style.display =
-        "block";
-    }
-    if (flag === false) {
-      document.getElementsByClassName("navbar_ul_responsive")[0].style.display =
-        "none";
-    }
-  }, [flag]);
-
-  const responsiveHandler = () => {
-    setflag(!flag);
-  };
-
   return (
     <>
       <div
-        className="navbar_div bg-black lg:fixed w-full z-50 bg-transparent backdrop-blur-xl"
+        className="navbar_div bg-black lg:fixed w-full lg:z-50 bg-transparent backdrop-blur-xl"
         id="navbar"
       >
         <h2>QuickInsight</h2>
@@ -127,9 +110,76 @@ export default function Navbar() {
           </li>
         </ul>
         <div className="navbar_ul_responsive_button">
-          <button onClick={responsiveHandler}>
-            <i className="fa-solid fa-bars"></i>
-          </button>
+          <div className="dropdown dropdown-end ">
+            <div tabIndex={0} role="button" className=" m-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
+                />
+              </svg>
+            </div>
+            <ul
+              tabIndex={0}
+              className="dropdown-content z-50   menu p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <button
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  Home
+                </button>
+              </li>
+              {token !== null ? (
+                <li>
+                  <button
+                    onClick={() => {
+                      navigate("/myblog");
+                    }}
+                  >
+                    My blogs
+                  </button>
+                </li>
+              ) : null}
+              {token !== null ? (
+                <li>
+                  <button
+                    onClick={() => {
+                      navigate("/createblog");
+                    }}
+                  >
+                    Create new blog
+                  </button>
+                </li>
+              ) : null}
+              {token !== null ? (
+                <li>
+                  <button onClick={logoutHandler}>Logout</button>
+                </li>
+              ) : null}
+              {token === null ? (
+                <li>
+                  <button
+                    onClick={() => {
+                      navigate("/Login");
+                    }}
+                  >
+                    Login
+                  </button>
+                </li>
+              ) : null}
+            </ul>
+          </div>
           {token !== null ? (
             <div className="profile_photo">
               <img
@@ -147,7 +197,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <ul className="navbar_ul_responsive">
+      {/* <ul className="navbar_ul_responsive">
         <li>
           <button
             onClick={() => {
@@ -195,7 +245,7 @@ export default function Navbar() {
             </button>
           </li>
         ) : null}
-      </ul>
+      </ul> */}
     </>
   );
 }
