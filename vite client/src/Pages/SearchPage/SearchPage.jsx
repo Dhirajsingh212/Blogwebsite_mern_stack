@@ -16,7 +16,7 @@ const SearchPage = () => {
   return (
     <div className="flex flex-col gap-4 min-h-screen">
       <nav className="px-10 lg:px-20 max-md:px-4 py-4 bg-black lg:fixed w-full z-50 bg-transparent backdrop-blur-xl">
-        <div className="flex flex-col gap-4 md:flex-row md:justify-between">
+        <div className="flex flex-col gap-4 sm:flex-row sm:justify-between">
           <div className="flex flex-row justify-between items-center">
             <p className="text-2xl">QuickInsight</p>
           </div>

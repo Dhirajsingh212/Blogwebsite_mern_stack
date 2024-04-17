@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getAllBlogs } from "../../functions";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import BlogSkeleton from "../../skeleton/BlogSkeleton";
 
 export default function Blog() {
   const { token } = useSelector((state) => state.userReducer);
+  const [isLoading, setIsLoading] = useState(true);
   const { blogs, isFetching, isError } = useSelector(
     (state) => state.blogReducer
   );
@@ -22,13 +23,15 @@ export default function Blog() {
     getAllBlogs(data)
       .then((res) => {
         dispatch(blogActions.fetchBlogSuccess(res.data.data));
+        setIsLoading(false);
       })
       .catch((err) => {
         dispatch(blogActions.fetchBlogFail());
+        setIsLoading(false);
       });
   }, []);
 
-  if (isFetching) {
+  if (isFetching || isLoading) {
     return <BlogSkeleton />;
   }
 

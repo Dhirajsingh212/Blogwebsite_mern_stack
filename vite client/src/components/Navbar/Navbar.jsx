@@ -110,26 +110,26 @@ export default function Navbar() {
           </li>
         </ul>
         <div className="navbar_ul_responsive_button">
-          <div className="dropdown dropdown-end ">
+          <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className=" m-1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
-                class="w-6 h-6"
+                className="w-6 h-6"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
                 />
               </svg>
             </div>
             <ul
               tabIndex={0}
-              className="dropdown-content z-50   menu p-2 shadow bg-base-100 rounded-box w-52"
+              className="dropdown-content z-50  menu p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
                 <button
