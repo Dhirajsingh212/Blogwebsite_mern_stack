@@ -7,6 +7,7 @@ import { getUser, logoutUser } from "../../functions";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../Store";
 import SearchBar from "../SearchBar/SearchBar";
+import Swal from "sweetalert2";
 
 export default function Navbar() {
   let navigate = useNavigate();
@@ -28,8 +29,28 @@ export default function Navbar() {
   }, [token]);
 
   const logoutHandler = async () => {
-    await logoutUser(token);
-    dispatch(userActions.logout());
+    try {
+      Swal.fire({
+        title: "Are you sure?You want to logout?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await logoutUser(token);
+          dispatch(userActions.logout());
+          Swal.fire({
+            title: "Logout!",
+            text: "Successfully Logged Out.",
+            icon: "success",
+          });
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
