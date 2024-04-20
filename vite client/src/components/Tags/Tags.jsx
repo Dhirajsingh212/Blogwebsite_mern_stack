@@ -9,7 +9,9 @@ const Tags = (event) => {
       style={randomStyles[getRandomInt(randomStyles.length)]}
     >
       <div className="bg-gray-800 px-2.5 py-1.5 rounded-md ">
-        {event !== null && typeof event.event !== "object" ? event.event : null}
+        {event !== null && typeof event.event !== "object"
+          ? event.event.slice(0, 25)
+          : null}
       </div>
     </div>
   );

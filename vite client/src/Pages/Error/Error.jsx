@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Error = ({ errCode, errMsg, disable }) => {
   const navigate = useNavigate();
   return (
-    <main className="grid self-center min-h-full place-items-center px-6 py-20 sm:py-32 lg:px-8">
+    <main className="grid self-center min-h-screen place-items-center px-6 py-20 sm:py-32 lg:px-8">
       <div className="text-center">
         <p className="text-base font-semibold text-blue-600">{errCode}</p>
         <h1 className="mt-4 text-3xl font-bold tracking-tight  sm:text-5xl">

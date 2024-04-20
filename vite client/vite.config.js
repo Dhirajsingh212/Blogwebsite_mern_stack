@@ -20,5 +20,11 @@ export default defineConfig(({ command, mode }) => {
         return prev;
       }, {}),
     },
+    server: {
+      host: true,
+      hmr: {
+        port: 3000,
+      },
+    },
   };
 });
