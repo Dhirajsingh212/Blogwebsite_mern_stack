@@ -9,9 +9,7 @@ const client = require("./redis");
 
 dotenv.config({ path: "./.env" });
 
-const DB_PORT = process.env.DB_LOCAL || "mongodb://mongodb-myapp:27017/";
-console.log(DB_PORT);
-
+const DB_PORT = process.env.DB_LOCAL;
 mongoose.set("strictQuery", false);
 mongoose
   .connect(DB_PORT)
