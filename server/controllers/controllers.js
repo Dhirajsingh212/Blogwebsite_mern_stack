@@ -14,6 +14,15 @@ const jwt_sign = (id) => {
 
 exports.signup = async (req, res) => {
   try {
+    const existUser = await User.find({ username: req.body.username });
+
+    if (existUser) {
+      return res.status(400).json({
+        status: "fail",
+        message: "User already exist",
+      });
+    }
+
     const newUser = await User.create({
       email: req.body.email,
       username: req.body.username,
@@ -23,13 +32,13 @@ exports.signup = async (req, res) => {
 
     const token = jwt_sign(newUser._id);
 
-    res.status(200).json({
+    return res.status(200).json({
       status: "success",
       token,
       data: newUser,
     });
   } catch (err) {
-    res.status(400).json({
+    return res.status(400).json({
       status: "fail",
       message: err,
     });
@@ -41,6 +50,13 @@ exports.login = async (req, res) => {
     const { username, password } = req.body;
 
     const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.status(404).json({
+        status: "fail",
+        message: "User not found",
+      });
+    }
 
     const correct = await bcrypt.compare(password, user.password);
 

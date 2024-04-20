@@ -83,12 +83,9 @@
   color: white;
 }
 
-@media screen and (max-width: 769px) {
+@media screen and (max-width: 1024px) {
   .navbar_div {
     padding: 1.5em 1.5em;
-  }
-  .navbar_ul {
-    display: none;
   }
 
   .navbar_ul_responsive_button {
@@ -102,7 +99,13 @@
   }
 }
 
-@media screen and (min-width: 769px) {
+@media screen and (max-width: 1024px) {
+  .navbar_ul {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1024px) {
   .navbar_ul_responsive {
     display: none !important;
   }

@@ -9,6 +9,7 @@ import { blogActions, userBlogActions } from "../../Store";
 import Error from "../Error/Error";
 import Tags from "../../components/Tags/Tags";
 import MyBlogSkeleton from "../../skeleton/MyBlogSkeleton";
+import Swal from "sweetalert2";
 
 export default function Myblogs() {
   const { token } = useSelector((state) => state.userReducer);
@@ -94,24 +95,41 @@ export default function Myblogs() {
                     </button>
                     <button
                       onClick={async () => {
-                        if (prompt("Are you sure") === null) return;
-                        const params = e._id;
-                        try {
-                          const res = await axios.delete(
-                            `${base_url}deleteblogs`,
-                            {
-                              headers: { params, token },
+                        Swal.fire({
+                          title: "Are you sure?",
+                          text: "You won't be able to revert this!",
+                          icon: "warning",
+                          showCancelButton: true,
+                          confirmButtonColor: "#3085d6",
+                          cancelButtonColor: "#d33",
+                          confirmButtonText: "Yes, delete it!",
+                        }).then(async (result) => {
+                          if (result.isConfirmed) {
+                            const params = e._id;
+                            try {
+                              const res = await axios.delete(
+                                `${base_url}deleteblogs`,
+                                {
+                                  headers: { params, token },
+                                }
+                              );
+                              dispatch(
+                                userBlogActions.fetchUserBlogSuccess(
+                                  res.data.data
+                                )
+                              );
+                              dispatch(
+                                blogActions.fetchBlogSuccess(res.data.allBlog)
+                              );
+                            } catch (err) {
+                              console.log(err);
                             }
-                          );
-                          dispatch(
-                            userBlogActions.fetchUserBlogSuccess(res.data.data)
-                          );
-                          dispatch(
-                            blogActions.fetchBlogSuccess(res.data.allBlog)
-                          );
-                        } catch (err) {
-                          console.log(err);
-                        }
+                            Swal.fire({
+                              title: "Deleted!",
+                              icon: "success",
+                            });
+                          }
+                        });
                       }}
                       className="hover:text-red-500"
                     >

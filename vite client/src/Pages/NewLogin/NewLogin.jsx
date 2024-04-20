@@ -13,6 +13,7 @@ const NewLogin = () => {
 
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
+  const [errMessage, setErrMessage] = useState("");
 
   const changeusrname = (e) => {
     setusername(e.target.value);
@@ -32,6 +33,8 @@ const NewLogin = () => {
       navigate("/");
     } catch (err) {
       dispatch(userActions.authFail());
+      console.log(err);
+      setErrMessage(err.response.data.message);
     }
   };
 
@@ -39,15 +42,15 @@ const NewLogin = () => {
     return <Loader />;
   }
 
-  if (isError) {
-    return (
-      <Error
-        errCode={"404"}
-        errMsg={"Something Went Wrong Please Refresh"}
-        disable={true}
-      />
-    );
-  }
+  // if (isError) {
+  //   return (
+  //     <Error
+  //       errCode={"404"}
+  //       errMsg={"Something Went Wrong Please Refresh"}
+  //       disable={true}
+  //     />
+  //   );
+  // }
   return (
     <>
       <div className="min-h-screen flex items-center justify-center ">
@@ -123,6 +126,7 @@ const NewLogin = () => {
               }}
             />
           </label>
+          <p className="text-rose-600 self-center">{errMessage}</p>
           <button
             type="submit"
             className="btn bg-[#5f1ad6] text-white hover:bg-[#5f1ad6]"

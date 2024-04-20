@@ -16,6 +16,7 @@ const NewSignup = () => {
   const [email, setemail] = useState("");
   const [passwrd, setpasswrd] = useState("");
   const [cnfpasswrd, setcnfpasswrd] = useState("");
+  const [errMessage, setErrMessage] = useState("");
 
   const changeusrname = (e) => {
     setusrname(e.target.value);
@@ -49,6 +50,7 @@ const NewSignup = () => {
       navigate("/");
     } catch (err) {
       dispatch(userActions.authFail());
+      setErrMessage(err.response.data.message);
     }
   };
 
@@ -56,15 +58,15 @@ const NewSignup = () => {
     return <Loader />;
   }
 
-  if (isError) {
-    return (
-      <Error
-        errCode={"404"}
-        errMsg={"Something Went Wrong Please Refresh"}
-        disable={true}
-      />
-    );
-  }
+  // if (isError) {
+  //   return (
+  //     <Error
+  //       errCode={"404"}
+  //       errMsg={"Something Went Wrong Please Refresh"}
+  //       disable={true}
+  //     />
+  //   );
+  // }
 
   return (
     <>
@@ -189,6 +191,7 @@ const NewSignup = () => {
               }}
             />
           </label>
+          <p className="text-rose-600 self-center">{errMessage}</p>
           <button
             type="submit"
             className="btn bg-[#5f1ad6] text-white hover:bg-[#5f1ad6]"
