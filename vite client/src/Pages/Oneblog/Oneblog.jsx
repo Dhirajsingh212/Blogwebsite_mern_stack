@@ -51,7 +51,7 @@ export default function Oneblog() {
   return (
     <div className="flex flex-col lg:flex-row gap-5 py-10 px-20 max-sm:px-4 max-md:px-5 ">
       <div className=" flex flex-col gap-5">
-        <h2 className="text-3xl lg:text-4xl font-bold text-teal-400 capitalize">
+        <h2 className="text-3xl lg:text-4xl font-bold text-teal-400 capitalize flex-wrap break-words">
           {data.title}
         </h2>
         <div className="flex flex-wrap gap-3">
@@ -67,8 +67,11 @@ export default function Oneblog() {
             src={`${data.image}`}
             alt=""
           />
-          <div className="flex flex-col gap-4">
-            <p className="text-xl">{data.description}</p>
+          <div className="flex flex-col gap-4 w-full prose max-w-none">
+            <p
+              className="text-xl flex-wrap break-words"
+              dangerouslySetInnerHTML={{ __html: data.description }}
+            ></p>
             {data.code && (
               <div>
                 <CodeHighligher code={data.code} language={data.language} />

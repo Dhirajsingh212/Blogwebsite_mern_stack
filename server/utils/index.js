@@ -18,10 +18,8 @@ function convertLinesToArray(inputString) {
 async function generateTags(content) {
   const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
-  const prompt = `
-      suggest min of 2 and max of 6 tags based on the below content.if tags cannot be found then provide tags related to the topic or random tags:-
-      ${content}
-  `;
+  const prompt = `suggest min of two and max of six tags based on the below content if tags cannot be found then provide tags related to the topic or random tags please provide me only text without any symbol and i want only plain text not any symbols not any numbers
+    ${content}`;
 
   const result = await model.generateContent(prompt);
   const response = await result.response;

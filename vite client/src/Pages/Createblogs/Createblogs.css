@@ -19,7 +19,7 @@
   outline: none;
 }
 
-.createblogs_div button {
+.createblogs_div_button button {
   border: none;
   background-color: #5f1ad6;
   padding: 0.5em;
@@ -29,7 +29,7 @@
   font-weight: 500;
 }
 
-.createblogs_div button:active {
+.createblogs_div_button button:active {
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
@@ -37,7 +37,7 @@
   .createblogs_div {
     padding: 1em;
   }
-  .createblogs_div button {
+  .createblogs_div_button button {
     width: 100%;
     align-self: center;
   }

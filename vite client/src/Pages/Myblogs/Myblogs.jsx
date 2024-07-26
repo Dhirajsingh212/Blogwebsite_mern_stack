@@ -78,11 +78,14 @@ export default function Myblogs() {
                       }}
                       className="p-0 m-0 text-left text-2xl font-bold hover:text-blue-500 hover:cursor-pointer"
                     >
-                      {e.title.slice(0, 150)}
+                      {e.title.slice(0, 400)}
                     </button>
-                    <p className="text-gray-500">
-                      {e.description.slice(0, 500)}
-                    </p>
+                    <p
+                      className="text-gray-500 flex-wrap break-words"
+                      dangerouslySetInnerHTML={{
+                        __html: e.description.slice(0, 500),
+                      }}
+                    ></p>
                   </div>
                   <div className="text-xl flex flex-row justify-end gap-6">
                     <button

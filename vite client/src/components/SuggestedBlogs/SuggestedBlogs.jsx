@@ -32,7 +32,12 @@ const SuggestedBlogs = () => {
                     {e.title.slice(0, 150)}
                   </button>
                   <img src={e.image} className="rounded-xl" />
-                  <p>{e.description.slice(0, 100)}...</p>
+                  <p
+                    className="flex-wrap break-words"
+                    dangerouslySetInnerHTML={{
+                      __html: `${e.description.slice(0, 100)}...`,
+                    }}
+                  ></p>
                 </div>
               );
             })

@@ -11,6 +11,7 @@ import Error from "../Error/Error";
 import Loader from "../../components/Loader/Loader";
 import SelectLanguages from "../../components/SelectLanguages/SelectLanguages";
 import CodeHighligher from "../../components/CodeHighlighter/CodeHighlighter";
+import RichTextEditor from "../../components/RichTextEditor/RichTextEditor";
 
 export default function Editblogs() {
   const { token } = useSelector((state) => state.userReducer);
@@ -22,11 +23,12 @@ export default function Editblogs() {
 
   const params = useParams().id;
 
-  const [description, setdescription] = useState("");
+  const [description, setDescription] = useState("");
   const [title, settitle] = useState("");
   const [code, setCode] = useState("");
   const [language, setLanguage] = useState("");
   const [previewSource, setPreviewSource] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // let token = token;
@@ -35,19 +37,17 @@ export default function Editblogs() {
         settitle(res.data.data[0].title);
         setCode(res.data.data[0].code ? res.data.data[0].code : "");
         setLanguage(res.data.data[0].language ? res.data.data[0].language : "");
-        setdescription(res.data.data[0].description);
+        setDescription(res.data.data[0].description);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setIsLoading(false);
       });
   }, []);
 
   const changetitle = (e) => {
     settitle(e.target.value);
-  };
-
-  const changedescrip = (e) => {
-    setdescription(e.target.value);
   };
 
   const changeCode = (e) => {
@@ -96,7 +96,7 @@ export default function Editblogs() {
     }
   };
 
-  if (isFetching) {
+  if (isFetching || isLoading) {
     return <Loader />;
   }
   if (isError) {
@@ -107,21 +107,26 @@ export default function Editblogs() {
   }
 
   return (
-    <div className="py-10">
+    <div className="md:py-10">
       <form
         className="editblogs_div max-sm:px-4 max-md:px-10 px-20"
         onSubmit={submitHandler}
       >
-        <textarea
-          type="text"
-          className="textarea textarea-secondary text-xl"
-          placeholder="Title"
-          value={title}
-          name="title"
-          required
-          onChange={changetitle}
-        />
-        <textarea
+        <div className="flex flex-col gap-2">
+          <label className="text-gray-200">Title</label>
+          <textarea
+            type="text"
+            className="textarea textarea-secondary text-xl"
+            placeholder="Title"
+            value={title}
+            name="title"
+            required
+            onChange={changetitle}
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="text-gray-200">Description</label>
+          {/* <textarea
           type="text"
           className="textarea textarea-secondary text-xl"
           placeholder="Description"
@@ -129,8 +134,11 @@ export default function Editblogs() {
           onChange={changedescrip}
           name="description"
           required
-        />
-        <div>
+          /> */}
+          <RichTextEditor text={description} setText={setDescription} />
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="text-gray-200">Select Languages</label>
           <SelectLanguages
             language={language}
             changeLanguage={changeLanguage}
@@ -139,22 +147,31 @@ export default function Editblogs() {
         <div>
           <CodeHighligher code={code} language="c++" />
         </div>
-        <textarea
-          className="textarea textarea-secondary text-xl"
-          type="text"
-          placeholder="Code"
-          name="code"
-          value={code}
-          onChange={changeCode}
-        />
-        <input
-          type="file"
-          className="file-input file-input-bordered w-full max-w-xs"
-          name="image"
-          onChange={changeimage}
-        />
+        <div className="flex flex-col gap-2">
+          <label className="text-gray-200">Code</label>
+          <textarea
+            className="textarea textarea-secondary text-xl"
+            type="text"
+            placeholder="Code"
+            name="code"
+            value={code}
+            onChange={changeCode}
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="text-gray-200">Select Image</label>
+          <input
+            type="file"
+            className="file-input file-input-bordered w-full max-w-xs"
+            name="image"
+            onChange={changeimage}
+          />
+        </div>
         {previewSource && <img src={previewSource} alt="" />}
-        <button>Update</button>
+
+        <div className="editblogs_div_button">
+          <button>Update</button>
+        </div>
       </form>
     </div>
   );

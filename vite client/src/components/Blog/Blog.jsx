@@ -73,11 +73,14 @@ export default function Blog() {
                   }}
                   className="self-start text-start font-bold text-2xl hover:text-blue-600 hover:cursor-pointer"
                 >
-                  {e.title.slice(0, 30)}
+                  {e.title}
                 </button>
-                <div className="text-gray-400">
-                  {e.description.slice(0, 400)}
-                </div>
+                <div
+                  className="text-gray-400 flex-wrap break-words"
+                  dangerouslySetInnerHTML={{
+                    __html: `${e.description.slice(0, 400)}...`,
+                  }}
+                ></div>
                 <div className="text-gray-400">
                   <p>Owner</p>
                   <p>{e.username}</p>

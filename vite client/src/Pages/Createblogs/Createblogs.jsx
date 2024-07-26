@@ -9,6 +9,7 @@ import Error from "../Error/Error";
 import Loader from "../../components/Loader/Loader";
 import CodeHighligher from "../../components/CodeHighlighter/CodeHighlighter";
 import SelectLanguages from "../../components/SelectLanguages/SelectLanguages";
+import RichTextEditor from "../../components/RichTextEditor/RichTextEditor";
 
 export default function Createblogs() {
   let navigate = useNavigate();
@@ -27,10 +28,6 @@ export default function Createblogs() {
 
   const changetitle = (e) => {
     settitle(e.target.value);
-  };
-
-  const changedescrip = (e) => {
-    setdescrip(e.target.value);
   };
 
   const changeCode = (e) => {
@@ -92,31 +89,39 @@ export default function Createblogs() {
   }
 
   return (
-    <div className="py-10">
+    <div className="md:py-10">
       <form
-        className="createblogs_div px-20 py-10 max-sm:px-4 max-md:px-10"
+        className="createblogs_div px-20 md:py-10 max-sm:px-4 max-md:px-10"
         encType="multipart/form-data"
         onSubmit={submitHandler}
       >
-        <textarea
-          type="text"
-          className="textarea textarea-secondary text-xl"
-          placeholder="Title"
-          value={title}
-          name="title"
-          onChange={changetitle}
-          required
-        ></textarea>
-        <textarea
-          className="textarea textarea-secondary text-xl"
+        <div className="flex flex-col gap-2">
+          <label className="text-gray-200 font-sans">Title</label>
+          <textarea
+            type="text"
+            className="textarea textarea-secondary text-xl"
+            placeholder="Title"
+            value={title}
+            name="title"
+            onChange={changetitle}
+            required
+          ></textarea>
+        </div>
+        {/* <textarea
+          // className="textarea textarea-secondary text-xl"
           type="text"
           placeholder="Description"
           name="description"
           value={descrip}
           onChange={changedescrip}
           required
-        />
-        <div>
+        /> */}
+        <div className="flex flex-col gap-2 ">
+          <label className="text-gray-200 font-sans">Description</label>
+          <RichTextEditor text={descrip} setText={setdescrip} />
+        </div>
+        <div className="flex flex-col gap-2">
+          <label className="text-gray-200 font-sans">Select Languages</label>
           <SelectLanguages
             language={language}
             changeLanguage={changeLanguage}
@@ -125,14 +130,17 @@ export default function Createblogs() {
         <div>
           <CodeHighligher code={code} language="c++" />
         </div>
-        <textarea
-          className="textarea textarea-secondary text-xl"
-          type="text"
-          placeholder="Code"
-          name="code"
-          value={code}
-          onChange={changeCode}
-        />
+        <div className="flex flex-col gap-2">
+          <label className="text-gray-200 font-sans">Code</label>
+          <textarea
+            className="textarea textarea-secondary text-xl"
+            type="text"
+            placeholder="Code"
+            name="code"
+            value={code}
+            onChange={changeCode}
+          />
+        </div>
 
         {previewSource && <img src={previewSource} alt="" />}
 
@@ -142,9 +150,11 @@ export default function Createblogs() {
           filename="image"
           onChange={changeimglink}
         />
-        <button type="submit" className="shadow-xl">
-          Publish
-        </button>
+        <div className="createblogs_div_button flex justify-end">
+          <button type="submit" className="shadow-xl ">
+            Publish
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -12,7 +12,11 @@ export default function CodeHighligher({ code, language }) {
   return (
     <div className="language-javascript">
       <pre>
-        <code className={`language-${language}`}>{code}</code>
+        <code className={`language-${language} w-full`}>
+          <div className="flex-wrap break-words flex flex-col text-rose-500">
+            {code}
+          </div>
+        </code>
       </pre>
     </div>
   );

@@ -29,6 +29,8 @@ services:
       - DB_LOCAL=mongodb://mongodb:27017/mydatabase
       - REDIS_URL=redis://redis:6379
       - PORT=8000
+    volumes:
+      - ./server:/server
 
   client:
     build: ./vite client
@@ -39,3 +41,5 @@ services:
       - server
     environment:
       - VITE_BASE_URL=http://localhost:8000/
+    volumes:
+      - ./vite client:/client

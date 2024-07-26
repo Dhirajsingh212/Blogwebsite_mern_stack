@@ -37,7 +37,7 @@ const blogSchema = new mongoose.Schema(
     image: {
       type: String,
       default:
-        "https://images.unsplash.com/photo-1575936123452-b67c3203c357?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D",
+        "https://images.unsplash.com/photo-1509966756634-9c23dd6e6815?q=80&w=1376&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       trim: true,
     },
     comments: [
