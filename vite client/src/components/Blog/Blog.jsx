@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { blogActions } from "../../Store";
 import { getTime } from "../../functions/utils";
 import Tags from "../Tags/Tags";
-import BlogSkeleton from "../../skeleton/BlogSkeleton";
+import BlogSkeleton, { BlogSkeletonCard } from "../../skeleton/BlogSkeleton";
 
 export default function Blog() {
   const { token } = useSelector((state) => state.userReducer);
@@ -32,7 +32,13 @@ export default function Blog() {
   }, []);
 
   if (isFetching || isLoading) {
-    return <BlogSkeleton />;
+    return (
+      <div className="max-md:px-4 max-sm:py-20 py-28 gap-5 grid lg:grid-cols-3 lg:px-20 md:grid-cols-2 md:px-10">
+        {[1, 2, 3, 4, 5].map((e, index) => {
+          return <BlogSkeletonCard key={index} />;
+        })}
+      </div>
+    );
   }
 
   if (blogs.length == 0) {
