@@ -34,7 +34,7 @@
 .editblogs_div_button {
   display: flex;
   flex-direction: row;
-  justify-items: end;
+  justify-content: flex-end;
 }
 .editblogs_div_button button {
   border: none;

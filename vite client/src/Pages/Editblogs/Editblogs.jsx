@@ -77,6 +77,10 @@ export default function Editblogs() {
       alert("Please Enter Valid Language");
       return;
     }
+    if (title.length > 200) {
+      alert("title should be less than 400 characters.");
+      return;
+    }
     try {
       dispatch(userBlogActions.fetchUserBlogStart());
       const res = await updateBlog(

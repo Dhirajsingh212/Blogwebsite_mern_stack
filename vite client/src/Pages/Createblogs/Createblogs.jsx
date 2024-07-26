@@ -57,6 +57,10 @@ export default function Createblogs() {
       alert("Please Enter Valid Language");
       return;
     }
+    if (title.length > 200) {
+      alert("title should be less than 400 characters.");
+      return;
+    }
     var data = token;
     try {
       dispatch(userBlogActions.fetchUserBlogStart());
